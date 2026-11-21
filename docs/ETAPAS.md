@@ -21,15 +21,17 @@ Cada etapa é um commit no histórico do repositório (`git log --oneline`).
 | 15 | `feat(mobile): temas claro e escuro com sombreamento realista` | Light/dark com preferência salva e gradientes no app |
 | 16 | `feat(web): redesign modernista inspirado nos teatros de ópera` | Nova identidade no site (sai o brutalismo) |
 | 17 | `feat(mobile): redesign modernista inspirado nos teatros de ópera` | Mesma identidade no app |
+| 18 | `refactor(ui): remove a estética de cortina` | Só cores sólidas, gradientes e sombras |
+| 19 | `ci: workflow do GitHub Actions para gerar o APK Android` | APK por execução manual ou tag `v*` |
 
 ## Identidade visual
 
-**Modernismo dos teatros de ópera** (anos 60): geometria limpa, arcos de proscênio, lustre em estrela, veludo carmim, folha de ouro e marfim. Profundidade por luz e sombra, sem excesso de ornamento.
+**Modernismo dos teatros de ópera** (anos 60): geometria limpa, arcos de proscênio, lustre em estrela, carmim, folha de ouro e marfim. Profundidade por luz e sombra, sem excesso de ornamento.
 
 - Temas: **claro** (foyer de dia) e **escuro** (noite de estreia); segue o sistema até a pessoa escolher.
 - Paletas em `packages/core/src/theme.ts` (`PALETTES.light` / `PALETTES.dark`); o site espelha os valores em variáveis CSS (`globals.css`).
 - Tipografia: **Bodoni Moda** (títulos, didone de alto contraste) + **Jost** (interface, geométrica modernista).
-- Motivos: lustre em estrela (logo e painel do Programa), arco de proscênio (landing, login, capas largas), filete duplo de ouro, faixa de veludo.
+- Motivos: lustre em estrela (logo e painel do Programa), arco de proscênio (landing, login, capas largas), filete duplo de ouro. Sem texturas: só cores sólidas, gradientes e sombras.
 - Seções como atos: **Ato I · Temporada** (Minha lista), **Ato II · Repertório** (Buscar), **Ato III · Programa** (estatísticas).
 - Onde trocar o tema: botão de meia-lua no cabeçalho do site; Programa → Tema no app.
 

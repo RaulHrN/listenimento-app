@@ -77,12 +77,31 @@ npm run dev:mobile    # escaneie o QR code com o Expo Go
 **Site (Vercel):** importe o repositório, defina *Root Directory* = `apps/web` e adicione
 `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
 
-**App (EAS):**
+**App Android (APK pelo GitHub Actions)** — workflow em `.github/workflows/android-apk.yml`.
+
+1. Em **Settings → Secrets and variables → Actions**, crie os secrets:
+   - `EXPO_PUBLIC_SUPABASE_URL` e `EXPO_PUBLIC_SUPABASE_ANON_KEY` (os mesmos do `.env` do app).
+2. Na aba **Actions → Android APK → Run workflow**, rode o build (~15–25 min na primeira vez).
+3. Baixe o APK em **Artifacts** no fim da execução e instale no celular
+   (permita "instalar apps de fontes desconhecidas").
+
+Para publicar uma versão: `git tag v0.2.0 && git push origin v0.2.0` — o APK é anexado à Release.
+Cada build usa o número da execução como `versionCode`, então o APK novo instala por cima do antigo.
+
+**Assinatura própria (recomendado antes de distribuir):** sem ela, o APK sai assinado com a
+chave de debug — serve para testar, mas trocar de chave depois obriga a desinstalar o app.
+
 ```bash
-cd apps/mobile
-npx eas-cli build --platform android --profile preview   # gera APK
+keytool -genkeypair -v -keystore listenimento.jks -alias listenimento \
+  -keyalg RSA -keysize 2048 -validity 10000
+base64 -w0 listenimento.jks   # no macOS: base64 -i listenimento.jks
 ```
-Configure as variáveis `EXPO_PUBLIC_*` no projeto EAS (`eas env:create`).
+
+Crie os secrets `ANDROID_KEYSTORE_BASE64` (saída do base64), `ANDROID_KEYSTORE_PASSWORD`,
+`ANDROID_KEY_ALIAS` (`listenimento`) e `ANDROID_KEY_PASSWORD`. Guarde o `.jks` fora do repositório.
+
+**Build local:** `cd apps/mobile && npx expo prebuild -p android && cd android && ./gradlew assembleRelease`
+(precisa de JDK 17 e Android SDK).
 
 ## Verificação rápida
 
