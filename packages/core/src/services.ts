@@ -13,20 +13,20 @@ import type {
 } from './types';
 import { itemKey } from './types';
 
-export type AcervoClient = SupabaseClient<Database>;
+export type ListenimentoClient = SupabaseClient<Database>;
 
-export class AcervoError extends Error {}
+export class ListenimentoError extends Error {}
 
 function fail(message: string, cause?: unknown): never {
   const detail = cause && typeof cause === 'object' && 'message' in cause ? `: ${(cause as { message: string }).message}` : '';
-  throw new AcervoError(`${message}${detail}`);
+  throw new ListenimentoError(`${message}${detail}`);
 }
 
 // ---------------------------------------------------------------------
 // Busca nas APIs externas (via Edge Function)
 // ---------------------------------------------------------------------
 export async function searchMedia(
-  client: AcervoClient,
+  client: ListenimentoClient,
   type: MediaType,
   query: string,
   page = 1,
@@ -44,16 +44,16 @@ export async function searchMedia(
     } catch {
       /* mantém mensagem padrão */
     }
-    throw new AcervoError(message);
+    throw new ListenimentoError(message);
   }
-  if (!data) throw new AcervoError('Resposta vazia da busca');
+  if (!data) throw new ListenimentoError('Resposta vazia da busca');
   return data;
 }
 
 // ---------------------------------------------------------------------
 // Itens do usuário
 // ---------------------------------------------------------------------
-export async function listItems(client: AcervoClient, filters: ItemFilters = {}): Promise<UserItem[]> {
+export async function listItems(client: ListenimentoClient, filters: ItemFilters = {}): Promise<UserItem[]> {
   const { mediaType, status, search, sort = 'recent', limit = 60, offset = 0 } = filters;
   let query = client.from('user_items').select('*');
 
@@ -80,14 +80,14 @@ export async function listItems(client: AcervoClient, filters: ItemFilters = {})
   return data as UserItem[];
 }
 
-export async function getItem(client: AcervoClient, id: string): Promise<UserItem | null> {
+export async function getItem(client: ListenimentoClient, id: string): Promise<UserItem | null> {
   const { data, error } = await client.from('user_items').select('*').eq('id', id).maybeSingle();
   if (error) fail('Erro ao carregar o item', error);
   return data as UserItem | null;
 }
 
 /** Retorna as chaves (tipo:provider:id) dos itens já salvos, para marcar na busca. */
-export async function getSavedKeys(client: AcervoClient, mediaType: MediaType): Promise<Map<string, string>> {
+export async function getSavedKeys(client: ListenimentoClient, mediaType: MediaType): Promise<Map<string, string>> {
   const { data, error } = await client
     .from('user_items')
     .select('id, media_type, provider, external_id')
@@ -97,7 +97,7 @@ export async function getSavedKeys(client: AcervoClient, mediaType: MediaType): 
 }
 
 export async function addItem(
-  client: AcervoClient,
+  client: ListenimentoClient,
   result: SearchResult,
   status: ItemStatus = 'wishlist',
 ): Promise<UserItem> {
@@ -123,13 +123,13 @@ export async function addItem(
   return data as UserItem;
 }
 
-export async function updateItem(client: AcervoClient, id: string, patch: UserItemUpdate): Promise<UserItem> {
+export async function updateItem(client: ListenimentoClient, id: string, patch: UserItemUpdate): Promise<UserItem> {
   const { data, error } = await client.from('user_items').update(patch).eq('id', id).select('*').single();
   if (error) fail('Erro ao atualizar o item', error);
   return data as UserItem;
 }
 
-export async function removeItem(client: AcervoClient, id: string): Promise<void> {
+export async function removeItem(client: ListenimentoClient, id: string): Promise<void> {
   const { error } = await client.from('user_items').delete().eq('id', id);
   if (error) fail('Erro ao remover o item', error);
 }
@@ -143,7 +143,7 @@ export interface StatsSummary {
   byType: Record<MediaType, { total: number; completed: number; avgRating: number | null }>;
 }
 
-export async function getStats(client: AcervoClient): Promise<StatsSummary> {
+export async function getStats(client: ListenimentoClient): Promise<StatsSummary> {
   const { data, error } = await client.from('user_item_stats').select('media_type, status, total, avg_rating');
   if (error) fail('Erro ao carregar estatísticas', error);
   return summarizeStats((data ?? []) as StatRow[]);
@@ -174,7 +174,7 @@ export function summarizeStats(rows: StatRow[]): StatsSummary {
   return { total, byStatus, byType };
 }
 
-export async function getProfile(client: AcervoClient): Promise<Profile | null> {
+export async function getProfile(client: ListenimentoClient): Promise<Profile | null> {
   const { data, error } = await client.from('profiles').select('id, display_name, avatar_url').maybeSingle();
   if (error) fail('Erro ao carregar o perfil', error);
   return data;

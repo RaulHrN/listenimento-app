@@ -1,17 +1,17 @@
 {
   "expo": {
-    "name": "Acervo",
-    "slug": "acervo",
-    "scheme": "acervo",
+    "name": "Listenimento",
+    "slug": "listenimento",
+    "scheme": "listenimento",
     "version": "0.1.0",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "bundleIdentifier": "com.acervo.app",
+      "bundleIdentifier": "com.listenimento.app",
       "supportsTablet": true
     },
     "android": {
-      "package": "com.acervo.app",
+      "package": "com.listenimento.app",
       "edgeToEdgeEnabled": true
     },
     "plugins": ["expo-router"],

@@ -4,5 +4,5 @@ export const env = {
 };
 
 if (!env.supabaseUrl || !env.supabaseAnonKey) {
-  console.warn('[acervo] Defina NEXT_PUBLIC_SUPABASE_URL e NEXT_PUBLIC_SUPABASE_ANON_KEY em apps/web/.env.local');
+  console.warn('[listenimento] Defina NEXT_PUBLIC_SUPABASE_URL e NEXT_PUBLIC_SUPABASE_ANON_KEY em apps/web/.env.local');
 }

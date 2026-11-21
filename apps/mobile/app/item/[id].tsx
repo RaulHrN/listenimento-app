@@ -11,7 +11,7 @@ import {
   updateItem,
   type UserItem,
   type UserItemUpdate,
-} from '@acervo/core';
+} from '@listenimento/core';
 import { supabase } from '@/lib/supabase';
 import { Button, Center, Chip, ErrorText, Input, Label } from '@/components/ui';
 import { MediaThumb, Stars } from '@/components/media';

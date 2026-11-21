@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Image } from 'expo-image';
-import { MEDIA_TYPE_INFO, STATUS_COLORS, statusLabel, type ItemStatus, type MediaType } from '@acervo/core';
+import { MEDIA_TYPE_INFO, STATUS_COLORS, statusLabel, type ItemStatus, type MediaType } from '@listenimento/core';
 import { useTheme } from '@/theme';
 
 export function MediaThumb({ uri, mediaType, width = 64 }: { uri: string | null; mediaType: MediaType; width?: number }) {

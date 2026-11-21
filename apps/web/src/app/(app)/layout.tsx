@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { getProfile } from '@acervo/core';
+import { getProfile } from '@listenimento/core';
 import { createSupabaseServer } from '@/shared/lib/supabase/server';
 import { Header } from '@/widgets/header/Header';
 

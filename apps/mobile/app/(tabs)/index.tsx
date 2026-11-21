@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { FlatList, RefreshControl, ScrollView, Text, View } from 'react-native';
 import { router, useFocusEffect } from 'expo-router';
-import { ITEM_STATUSES, genericStatusLabel, listItems, type ItemStatus, type MediaType, type UserItem } from '@acervo/core';
+import { ITEM_STATUSES, genericStatusLabel, listItems, type ItemStatus, type MediaType, type UserItem } from '@listenimento/core';
 import { supabase } from '@/lib/supabase';
 import { Button, Center, Chip, ErrorText, Input } from '@/components/ui';
 import { MediaRow, Stars, StatusPill } from '@/components/media';

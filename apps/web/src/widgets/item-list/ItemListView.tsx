@@ -12,7 +12,7 @@ import {
   type ItemStatus,
   type MediaType,
   type UserItem,
-} from '@acervo/core';
+} from '@listenimento/core';
 import { getSupabase } from '@/shared/lib/supabase/client';
 import { TypeTabs } from '@/shared/ui/TypeTabs';
 import { ItemCard } from '@/entities/item/ui/ItemCard';

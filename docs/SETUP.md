@@ -42,8 +42,8 @@ supabase functions deploy search
 ```
 
 No painel: **Authentication → URL Configuration**
-- *Site URL*: a URL do site (ex.: `https://acervo.vercel.app`)
-- *Redirect URLs*: `https://acervo.vercel.app/auth/callback`, `http://localhost:3000/auth/callback`
+- *Site URL*: a URL do site (ex.: `https://listenimento.vercel.app`)
+- *Redirect URLs*: `https://listenimento.vercel.app/auth/callback`, `http://localhost:3000/auth/callback`
 
 Para testar sem confirmar e-mail: **Authentication → Providers → Email → desligue "Confirm email"**.
 

@@ -1,4 +1,4 @@
-# Acervo
+# Listenimento
 
 Lista pessoal de tudo que você quer assistir, jogar, ler, ouvir e visitar — no celular e na web, sincronizada pela sua conta.
 
@@ -7,7 +7,7 @@ Lista pessoal de tudo que você quer assistir, jogar, ler, ouvir e visitar — n
 ## Estrutura
 
 ```
-acervo/
+listenimento/
 ├── apps/
 │   ├── web/        # Next.js 15 (App Router) + Tailwind v4, organizado em FSD
 │   └── mobile/     # Expo SDK 58 + Expo Router

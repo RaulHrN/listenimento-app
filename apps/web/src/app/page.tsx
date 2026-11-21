@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { MEDIA_TYPES, MEDIA_TYPE_INFO } from '@acervo/core';
+import { MEDIA_TYPES, MEDIA_TYPE_INFO } from '@listenimento/core';
 
 export default function LandingPage() {
   return (

@@ -10,7 +10,7 @@ import {
   updateItem,
   type UserItem,
   type UserItemUpdate,
-} from '@acervo/core';
+} from '@listenimento/core';
 import { getSupabase } from '@/shared/lib/supabase/client';
 import { MediaCover } from '@/entities/media/ui/MediaCover';
 import { Stars } from '@/shared/ui/Stars';

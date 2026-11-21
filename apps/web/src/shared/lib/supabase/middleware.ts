@@ -1,6 +1,6 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
-import type { Database } from '@acervo/core';
+import type { Database } from '@listenimento/core';
 import { env } from '@/shared/config/env';
 
 const PUBLIC_PATHS = ['/', '/login', '/auth'];

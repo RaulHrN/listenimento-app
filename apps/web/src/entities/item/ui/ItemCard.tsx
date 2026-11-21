@@ -1,4 +1,4 @@
-import { MEDIA_TYPE_INFO, type UserItem } from '@acervo/core';
+import { MEDIA_TYPE_INFO, type UserItem } from '@listenimento/core';
 import { MediaCover } from '@/entities/media/ui/MediaCover';
 import { Stars } from '@/shared/ui/Stars';
 import { StatusBadge } from './StatusBadge';

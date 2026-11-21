@@ -1,5 +1,5 @@
 -- =====================================================================
--- Acervo — schema inicial
+-- Listenimento — schema inicial
 -- Perfis de usuário + itens de entretenimento salvos por usuário.
 -- Os dados das APIs externas são guardados como "snapshot" no item,
 -- para a lista carregar rápido sem depender das APIs.

@@ -10,7 +10,7 @@ import {
   getProfile,
   getStats,
   type StatsSummary,
-} from '@acervo/core';
+} from '@listenimento/core';
 import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/providers/AuthProvider';
 import { Button, ErrorText } from '@/components/ui';

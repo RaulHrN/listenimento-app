@@ -1,6 +1,6 @@
 'use client';
 
-import { MEDIA_TYPES, MEDIA_TYPE_INFO, type MediaType } from '@acervo/core';
+import { MEDIA_TYPES, MEDIA_TYPE_INFO, type MediaType } from '@listenimento/core';
 
 interface Props<AllowAll extends boolean> {
   value: AllowAll extends true ? MediaType | null : MediaType;

@@ -11,7 +11,7 @@ import {
   type ItemStatus,
   type MediaType,
   type SearchResult,
-} from '@acervo/core';
+} from '@listenimento/core';
 import { supabase } from '@/lib/supabase';
 import { Center, ErrorText, Input } from '@/components/ui';
 import { MediaRow } from '@/components/media';

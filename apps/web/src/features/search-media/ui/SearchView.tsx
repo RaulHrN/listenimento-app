@@ -13,7 +13,7 @@ import {
   type ItemStatus,
   type MediaType,
   type SearchResult,
-} from '@acervo/core';
+} from '@listenimento/core';
 import { getSupabase } from '@/shared/lib/supabase/client';
 import { TypeTabs } from '@/shared/ui/TypeTabs';
 import { MediaCover } from '@/entities/media/ui/MediaCover';

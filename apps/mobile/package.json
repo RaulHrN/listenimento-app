@@ -1,5 +1,5 @@
 {
-  "name": "@acervo/mobile",
+  "name": "@listenimento/mobile",
   "version": "0.1.0",
   "private": true,
   "main": "expo-router/entry",
@@ -11,7 +11,7 @@
     "doctor": "npx expo-doctor"
   },
   "dependencies": {
-    "@acervo/core": "*",
+    "@listenimento/core": "*",
     "@react-native-async-storage/async-storage": "2.2.0",
     "@supabase/supabase-js": "^2.45.0",
     "expo": "~58.0.26",

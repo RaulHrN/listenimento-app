@@ -1,5 +1,5 @@
 import { ScrollView } from 'react-native';
-import { MEDIA_TYPES, MEDIA_TYPE_INFO, type MediaType } from '@acervo/core';
+import { MEDIA_TYPES, MEDIA_TYPE_INFO, type MediaType } from '@listenimento/core';
 import { Chip } from './ui';
 
 export function TypeChips({

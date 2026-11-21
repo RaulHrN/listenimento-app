@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ITEM_STATUSES, MEDIA_TYPES, MEDIA_TYPE_INFO, STATUS_COLORS, genericStatusLabel, getStats } from '@acervo/core';
+import { ITEM_STATUSES, MEDIA_TYPES, MEDIA_TYPE_INFO, STATUS_COLORS, genericStatusLabel, getStats } from '@listenimento/core';
 import { createSupabaseServer } from '@/shared/lib/supabase/server';
 
 export const metadata = { title: 'Painel' };

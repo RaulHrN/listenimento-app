@@ -1,6 +1,6 @@
 # Configuração mínima para desenvolvimento local com a Supabase CLI.
 # Rode `supabase init` se quiser o arquivo completo com todas as opções.
-project_id = "acervo"
+project_id = "listenimento"
 
 [api]
 enabled = true
@@ -20,7 +20,7 @@ port = 54323
 [auth]
 enabled = true
 site_url = "http://localhost:3000"
-additional_redirect_urls = ["http://localhost:3000/auth/callback", "acervo://auth/callback"]
+additional_redirect_urls = ["http://localhost:3000/auth/callback", "listenimento://auth/callback"]
 jwt_expiry = 3600
 enable_signup = true
 

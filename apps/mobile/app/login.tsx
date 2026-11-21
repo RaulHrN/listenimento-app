@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { MEDIA_TYPES, MEDIA_TYPE_INFO } from '@acervo/core';
+import { MEDIA_TYPES, MEDIA_TYPE_INFO } from '@listenimento/core';
 import { supabase } from '@/lib/supabase';
 import { Button, ErrorText, Input } from '@/components/ui';
 import { useTheme } from '@/theme';
@@ -46,7 +46,7 @@ export default function LoginScreen() {
     <SafeAreaView style={{ flex: 1, backgroundColor: t.bg }}>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.container}>
         <Text style={styles.emojis}>{MEDIA_TYPES.map((m) => MEDIA_TYPE_INFO[m].emoji).join(' ')}</Text>
-        <Text style={[styles.title, { color: t.text }]}>Acervo</Text>
+        <Text style={[styles.title, { color: t.text }]}>Listenimento</Text>
         <Text style={[styles.subtitle, { color: t.muted }]}>Tudo que você quer assistir, jogar, ler, ouvir e visitar.</Text>
 
         <View style={styles.form}>

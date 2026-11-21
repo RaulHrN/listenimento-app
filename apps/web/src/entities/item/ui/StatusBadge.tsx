@@ -1,4 +1,4 @@
-import { STATUS_COLORS, statusLabel, type ItemStatus, type MediaType } from '@acervo/core';
+import { STATUS_COLORS, statusLabel, type ItemStatus, type MediaType } from '@listenimento/core';
 
 export function StatusBadge({ status, mediaType }: { status: ItemStatus; mediaType: MediaType }) {
   const color = STATUS_COLORS[status];

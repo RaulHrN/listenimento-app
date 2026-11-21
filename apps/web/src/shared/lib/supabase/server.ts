@@ -1,6 +1,6 @@
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
-import type { Database } from '@acervo/core';
+import type { Database } from '@listenimento/core';
 import { env } from '@/shared/config/env';
 
 /** Cliente Supabase para Server Components, Route Handlers e Server Actions. */

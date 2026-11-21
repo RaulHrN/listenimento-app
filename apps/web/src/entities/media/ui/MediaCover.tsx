@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element -- capas vêm de vários domínios externos */
-import { MEDIA_TYPE_INFO, type MediaType } from '@acervo/core';
+import { MEDIA_TYPE_INFO, type MediaType } from '@listenimento/core';
 
 interface Props {
   src: string | null;

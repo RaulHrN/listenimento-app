@@ -16,7 +16,7 @@ export function Header({ displayName }: { displayName: string | null }) {
     <header className="sticky top-0 z-20 border-b border-zinc-200 bg-white/80 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/80">
       <div className="mx-auto flex h-14 max-w-6xl items-center gap-6 px-4">
         <Link href="/lista" className="text-lg font-bold">
-          Acervo
+          Listenimento
         </Link>
         <nav className="flex gap-1">
           {LINKS.map((l) => {
