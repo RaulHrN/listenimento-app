@@ -1,16 +1,17 @@
 import type { ItemStatus } from './types';
 
 /**
- * Identidade visual do Listenimento: cinema de rua antigo, com profundidade.
- * Madeira escura, veludo vermelho de cortina, latão e papel de ingresso.
+ * Identidade visual do Listenimento: modernismo dos teatros de ópera.
+ * Geometria limpa, arcos de proscênio, lustres em estrela, veludo carmim,
+ * folha de ouro e marfim. Profundidade por luz e sombra, sem ornamento demais.
  *
- * Dois temas: "light" (sala com as luzes acesas) e "dark" (sessão começando).
+ * Dois temas: "light" (foyer de dia) e "dark" (noite de estreia).
  * O site espelha estes valores em CSS (apps/web/src/app/globals.css).
  */
 export type ColorMode = 'light' | 'dark';
 
 export interface Palette {
-  /** fundo da página e o "foco de luz" no topo */
+  /** fundo da página e a luz difusa no topo */
   bg: string;
   bgSpot: string;
   /** superfícies: base e elevada */
@@ -20,25 +21,17 @@ export interface Palette {
   fg: string;
   muted: string;
   line: string;
-  /** veludo da cortina: sombra, base e brilho */
+  /** veludo carmim: sombra, base e brilho */
   accentDeep: string;
   accent: string;
   accentHi: string;
   accentFg: string;
-  /** latão das molduras e lâmpadas */
-  brass: string;
-  brassHi: string;
-  /** papel de ingresso */
-  ticket: string;
-  ticketFg: string;
-  ticketMuted: string;
+  /** folha de ouro: filetes, lustre, destaques */
+  gold: string;
+  goldHi: string;
   /** campos de formulário (afundados) */
   field: string;
   fieldLine: string;
-  /** madeira da fachada (cabeçalho) */
-  wood: string;
-  woodHi: string;
-  woodFg: string;
   /** cor-base das sombras */
   shadow: string;
   status: Record<ItemStatus, string>;
@@ -46,62 +39,48 @@ export interface Palette {
 
 export const PALETTES: Record<ColorMode, Palette> = {
   light: {
-    bg: '#efe7da',
-    bgSpot: '#fbf6ee',
-    surface: '#f8f2e8',
-    raised: '#fffdf9',
-    fg: '#23150d',
-    muted: '#7b6553',
-    line: 'rgba(35,21,13,0.10)',
-    accentDeep: '#5c070c',
-    accent: '#9b111a',
-    accentHi: '#c8202a',
-    accentFg: '#fff7ea',
-    brass: '#9a6d22',
-    brassHi: '#d6a54a',
-    ticket: '#f6ecd4',
-    ticketFg: '#23150d',
-    ticketMuted: '#7b6553',
-    field: '#fffdf9',
-    fieldLine: 'rgba(35,21,13,0.16)',
-    wood: '#3a2416',
-    woodHi: '#6b442b',
-    woodFg: '#f6ead2',
-    shadow: '#3a2212',
-    status: { wishlist: '#a87720', in_progress: '#c8202a', completed: '#3f7d2a', dropped: '#8a7868' },
+    bg: '#f4eee4',
+    bgSpot: '#fffcf6',
+    surface: '#faf6ef',
+    raised: '#fffefb',
+    fg: '#1f1416',
+    muted: '#7a6a62',
+    line: 'rgba(31,20,22,0.10)',
+    accentDeep: '#4a0a12',
+    accent: '#8a1424',
+    accentHi: '#b3222f',
+    accentFg: '#fffaf2',
+    gold: '#9b7a3c',
+    goldHi: '#c9a45c',
+    field: '#fffefb',
+    fieldLine: 'rgba(31,20,22,0.16)',
+    shadow: '#3a2025',
+    status: { wishlist: '#9b7a3c', in_progress: '#b3222f', completed: '#3f7a3a', dropped: '#8a7d74' },
   },
   dark: {
-    bg: '#120b07',
-    bgSpot: '#2a1a10',
-    surface: '#1d120c',
-    raised: '#271810',
-    fg: '#f1e4c3',
-    muted: '#a8927a',
-    line: 'rgba(241,228,195,0.09)',
-    accentDeep: '#4e060b',
-    accent: '#96101a',
-    accentHi: '#c81d26',
-    accentFg: '#fbf1de',
-    brass: '#d6a54a',
-    brassHi: '#ffd98a',
-    ticket: '#ecdfbf',
-    ticketFg: '#1b110b',
-    ticketMuted: '#6b5543',
-    field: '#0d0805',
-    fieldLine: 'rgba(214,165,74,0.28)',
-    wood: '#2b190f',
-    woodHi: '#4a2d1c',
-    woodFg: '#f1e4c3',
+    bg: '#0f0a0c',
+    bgSpot: '#24141b',
+    surface: '#171013',
+    raised: '#20161a',
+    fg: '#f3ead9',
+    muted: '#a8978a',
+    line: 'rgba(243,234,217,0.09)',
+    accentDeep: '#3e0710',
+    accent: '#7d1222',
+    accentHi: '#b02232',
+    accentFg: '#fbf3e4',
+    gold: '#c9a45c',
+    goldHi: '#e7cd8f',
+    field: '#0b0709',
+    fieldLine: 'rgba(201,164,92,0.25)',
     shadow: '#000000',
-    status: { wishlist: '#d6a54a', in_progress: '#ff5a48', completed: '#93c46e', dropped: '#8a7868' },
+    status: { wishlist: '#c9a45c', in_progress: '#e0605a', completed: '#8fb57a', dropped: '#8a7d74' },
   },
 };
 
 export const FONTS = {
-  /** letreiro: condensada, caixa alta */
-  display: 'Anton',
-  /** texto corrido */
-  body: 'Archivo',
-  /** ingresso / máquina de escrever */
-  mono: 'Courier Prime',
+  /** títulos: didone de alto contraste, como nos programas de ópera */
+  display: 'Bodoni Moda',
+  /** interface: geométrica modernista */
+  body: 'Jost',
 } as const;

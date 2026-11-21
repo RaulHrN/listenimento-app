@@ -3,11 +3,12 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ThemeToggle } from '@/features/theme/ui/ThemeToggle';
+import { Chandelier } from '@/shared/ui/Chandelier';
 
 const LINKS = [
   { href: '/lista', label: 'Minha lista' },
   { href: '/buscar', label: 'Buscar' },
-  { href: '/painel', label: 'Placar' },
+  { href: '/painel', label: 'Programa' },
 ];
 
 export function Header({ displayName }: { displayName: string | null }) {
@@ -15,42 +16,31 @@ export function Header({ displayName }: { displayName: string | null }) {
 
   return (
     <header className="relative z-30 sm:sticky sm:top-0">
-      {/* fachada de madeira */}
-      <div className="wood">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-8 gap-y-2 px-4 py-3">
-          <Link
-            href="/lista"
-            className="font-marquee text-2xl text-[#e8bd63] [text-shadow:0_1px_0_rgba(0,0,0,0.6),0_0_18px_rgba(255,200,110,0.25)] sm:text-[1.7rem]"
-          >
-            Listenimento
+      <div className="velvet-band" />
+      <div className="border-b border-line bg-[color-mix(in_srgb,var(--bg)_82%,transparent)] backdrop-blur-md">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-10 gap-y-1 px-4 py-4">
+          <Link href="/lista" className="flex items-center gap-2.5">
+            <Chandelier size={26} className="text-gold" />
+            <span className="font-display text-2xl leading-none text-fg">
+              Listen<span className="italic text-accent dark:text-accent-hi">i</span>mento
+            </span>
           </Link>
-          <nav className="order-3 flex w-full gap-6 sm:order-none sm:w-auto">
-            {LINKS.map((l) => {
-              const active = pathname.startsWith(l.href);
-              return (
-                <Link
-                  key={l.href}
-                  href={l.href}
-                  className={`relative py-1 font-mono text-xs font-bold uppercase tracking-[0.18em] transition ${
-                    active ? 'text-wood-fg' : 'text-wood-fg/55 hover:text-wood-fg'
-                  }`}
-                >
-                  {l.label}
-                  {active && <span className="absolute inset-x-0 -bottom-1 h-0.5 rounded-full bg-[#e8bd63] shadow-[0_0_8px_rgba(255,200,110,0.6)]" />}
-                </Link>
-              );
-            })}
+          <nav className="order-3 flex w-full gap-7 sm:order-none sm:w-auto">
+            {LINKS.map((l) => (
+              <Link key={l.href} href={l.href} className={`tab ${pathname.startsWith(l.href) ? 'tab-on' : ''}`}>
+                {l.label}
+              </Link>
+            ))}
           </nav>
-          <div className="ml-auto flex items-center gap-3">
-            {displayName && <span className="hidden font-mono text-xs text-wood-fg/55 md:inline">Olá, {displayName}</span>}
-            <ThemeToggle className="text-wood-fg" />
+          <div className="ml-auto flex items-center gap-4">
+            {displayName && <span className="hidden text-sm font-light text-muted md:inline">{displayName}</span>}
+            <ThemeToggle className="text-fg" />
             <form action="/auth/signout" method="post">
-              <button className="font-mono text-xs font-bold uppercase tracking-widest text-wood-fg/55 transition hover:text-wood-fg">Sair</button>
+              <button className="tab">Sair</button>
             </form>
           </div>
         </div>
       </div>
-      <div className="curtain-strip" />
     </header>
   );
 }

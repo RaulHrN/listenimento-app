@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from 'next';
 // fontes hospedadas no próprio site (sem depender do Google Fonts)
-import '@fontsource/anton/400.css';
-import '@fontsource/archivo/400.css';
-import '@fontsource/archivo/600.css';
-import '@fontsource/archivo/800.css';
-import '@fontsource/courier-prime/400.css';
-import '@fontsource/courier-prime/700.css';
+import '@fontsource/bodoni-moda/400.css';
+import '@fontsource/bodoni-moda/400-italic.css';
+import '@fontsource/bodoni-moda/500.css';
+import '@fontsource/jost/300.css';
+import '@fontsource/jost/400.css';
+import '@fontsource/jost/500.css';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -15,8 +15,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#efe7da' },
-    { media: '(prefers-color-scheme: dark)', color: '#120b07' },
+    { media: '(prefers-color-scheme: light)', color: '#f4eee4' },
+    { media: '(prefers-color-scheme: dark)', color: '#0f0a0c' },
   ],
 };
 

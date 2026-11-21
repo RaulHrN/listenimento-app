@@ -59,16 +59,16 @@ export function LoginForm() {
   return (
     <form onSubmit={onSubmit} className="flex w-full flex-col gap-4">
       {mode === 'signup' && (
-        <label className="flex flex-col gap-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-ticket-muted">
+        <label className="label">
           Nome
           <input className="input" value={name} onChange={(e) => setName(e.target.value)} placeholder="Como quer ser chamado" />
         </label>
       )}
-      <label className="flex flex-col gap-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-ticket-muted">
+      <label className="label">
         E-mail
         <input className="input" type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} />
       </label>
-      <label className="flex flex-col gap-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-ticket-muted">
+      <label className="label">
         Senha
         <input
           className="input"
@@ -82,22 +82,22 @@ export function LoginForm() {
       </label>
 
       {error && <p className="alert">{error}</p>}
-      {info && <p className="rounded bg-[#3f7d2a]/12 px-3 py-2 font-mono text-sm text-[#2f6420] shadow-[inset_0_0_0_1px_rgba(63,125,42,0.3)]">{info}</p>}
+      {info && <p className="border-l-2 border-[var(--st-completed)] px-3 py-2 text-sm text-[var(--st-completed)]">{info}</p>}
 
-      <button className="btn-primary mt-2 py-3 text-base" disabled={loading}>
-        {loading ? 'Imprimindo…' : mode === 'signin' ? 'Entrar na sessão' : 'Emitir meu ingresso'}
+      <button className="btn-primary mt-3 py-3.5" disabled={loading}>
+        {loading ? 'Aguarde…' : mode === 'signin' ? 'Entrar' : 'Criar conta'}
       </button>
 
       <button
         type="button"
-        className="font-mono text-sm text-ticket-muted underline decoration-1 underline-offset-4 transition hover:text-[#9b111a]"
+        className="text-center text-sm font-light text-muted transition hover:text-accent-hi"
         onClick={() => {
           setMode(mode === 'signin' ? 'signup' : 'signin');
           setError(null);
           setInfo(null);
         }}
       >
-        {mode === 'signin' ? 'Primeira vez? Crie sua conta' : 'Já tem ingresso? Entrar'}
+        {mode === 'signin' ? 'Primeira vez? Crie sua conta' : 'Já tem conta? Entrar'}
       </button>
     </form>
   );

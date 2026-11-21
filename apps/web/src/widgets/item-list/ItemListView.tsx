@@ -79,10 +79,10 @@ export function ItemListView() {
   return (
     <div className="flex flex-col gap-6">
       <PageTitle
-        kicker="Programação da casa"
+        kicker="Ato I · Temporada"
         title="Minha lista"
         action={
-          <Link href="/buscar" className="btn-primary">
+          <Link href="/buscar" className="btn-ghost">
             + Adicionar
           </Link>
         }
@@ -113,8 +113,8 @@ export function ItemListView() {
 
       {!loading && items.length === 0 && !error && (
         <div className="card px-6 py-14 text-center">
-          <p className="font-marquee text-4xl text-fg">Sala vazia</p>
-          <p className="mt-2 font-mono text-sm text-muted">Nenhum título em cartaz por aqui ainda.</p>
+          <p className="font-display text-4xl italic text-fg">Palco vazio</p>
+          <p className="mt-2 font-light text-sm text-muted">Nenhum título na sua temporada ainda.</p>
           <Link href="/buscar" className="btn-primary mt-6">
             Buscar algo para adicionar
           </Link>
@@ -127,7 +127,7 @@ export function ItemListView() {
         ))}
       </ul>
 
-      {loading && <p className="text-center font-mono text-xs uppercase tracking-[0.2em] text-muted">Acendendo as luzes…</p>}
+      {loading && <p className="text-center font-light text-xs uppercase tracking-[0.2em] text-muted">Acendendo o lustre…</p>}
       {hasMore && !loading && (
         <button className="btn-ghost self-center" onClick={() => load(items.length)}>
           Carregar mais

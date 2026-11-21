@@ -84,7 +84,7 @@ export function ItemEditor({ item, onClose, onSaved, onRemoved }: Props) {
 
   const overview = typeof item.metadata.overview === 'string' ? item.metadata.overview : null;
 
-  const label = 'flex flex-col gap-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-muted';
+  const label = 'label';
 
   return (
     <div
@@ -98,8 +98,8 @@ export function ItemEditor({ item, onClose, onSaved, onRemoved }: Props) {
         className="card max-h-[92dvh] w-full max-w-2xl overflow-y-auto !shadow-3"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="curtain-strip !h-2 rounded-t-[6px]" />
-        <div className="p-6 sm:p-7">
+        <div className="velvet-band !h-1.5" />
+        <div className="p-6 sm:p-8">
           <div className="flex gap-5">
             <MediaCover src={item.image_url} alt={item.title} mediaType={item.media_type} className="w-28 shrink-0 sm:w-36" />
             <div className="min-w-0 flex-1">
@@ -107,9 +107,9 @@ export function ItemEditor({ item, onClose, onSaved, onRemoved }: Props) {
                 {MEDIA_TYPE_INFO[item.media_type].label}
                 {item.year ? ` · ${item.year}` : ''}
               </p>
-              <h2 className="font-marquee mt-1.5 text-3xl text-fg sm:text-4xl">{item.title}</h2>
-              {item.subtitle && <p className="mt-1 font-mono text-sm text-muted">{item.subtitle}</p>}
-              {overview && <p className="mt-3 line-clamp-5 text-sm leading-relaxed text-fg/75">{overview}</p>}
+              <h2 className="mt-2 font-display text-3xl leading-tight text-fg sm:text-4xl">{item.title}</h2>
+              {item.subtitle && <p className="mt-1.5 text-sm font-light text-muted">{item.subtitle}</p>}
+              {overview && <p className="mt-4 line-clamp-5 text-sm font-light leading-relaxed text-fg/80">{overview}</p>}
             </div>
           </div>
 

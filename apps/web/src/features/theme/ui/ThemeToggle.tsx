@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 type Mode = 'light' | 'dark';
 
-/** Alterna entre "luzes acesas" (claro) e "sessão" (escuro). */
+/** Alterna entre "foyer de dia" (claro) e "noite de estreia" (escuro). */
 export function ThemeToggle({ className = '' }: { className?: string }) {
   const [mode, setMode] = useState<Mode | null>(null);
 
@@ -34,7 +34,7 @@ export function ThemeToggle({ className = '' }: { className?: string }) {
     setMode(next);
   }
 
-  const label = mode === 'dark' ? 'Acender as luzes (tema claro)' : 'Apagar as luzes (tema escuro)';
+  const label = mode === 'dark' ? 'Tema claro' : 'Tema escuro';
 
   return (
     <button
@@ -42,13 +42,12 @@ export function ThemeToggle({ className = '' }: { className?: string }) {
       onClick={toggle}
       aria-label={label}
       title={label}
-      className={`grid h-9 w-9 place-items-center rounded-full text-lg transition hover:scale-105 ${className}`}
-      style={{
-        background: 'radial-gradient(circle at 35% 30%, rgba(255,255,255,0.18), rgba(0,0,0,0.25))',
-        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.15), 0 2px 6px rgba(0,0,0,0.35)',
-      }}
+      className={`grid h-8 w-8 place-items-center rounded-full border border-current/25 transition hover:border-current/60 ${className}`}
     >
-      <span aria-hidden>{mode === null ? '' : mode === 'dark' ? '☀︎' : '☾'}</span>
+      {/* meia-lua geométrica: metade cheia = tema atual */}
+      <span aria-hidden className="relative block h-3.5 w-3.5 overflow-hidden rounded-full border border-current">
+        {mode && <span className={`absolute inset-y-0 w-1/2 bg-current ${mode === 'dark' ? 'right-0' : 'left-0'}`} />}
+      </span>
     </button>
   );
 }

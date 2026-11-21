@@ -16,13 +16,13 @@ interface MediaTypeInfo {
 }
 
 export const MEDIA_TYPE_INFO: Record<MediaType, MediaTypeInfo> = {
-  movie:  { label: 'Filme', plural: 'Filmes', emoji: '🎬', verb: 'assistir', gerund: 'Assistindo', done: 'Assistido', placeholder: 'Ex.: Cidade de Deus', color: '#b5121b' },
-  series: { label: 'Série', plural: 'Séries', emoji: '📺', verb: 'assistir', gerund: 'Assistindo', done: 'Assistida', placeholder: 'Ex.: Sintonia', color: '#c0622e' },
-  game:   { label: 'Jogo', plural: 'Jogos', emoji: '🎮', verb: 'jogar', gerund: 'Jogando', done: 'Zerado', placeholder: 'Ex.: Hollow Knight', color: '#7a9a3a' },
-  book:   { label: 'Livro', plural: 'Livros', emoji: '📚', verb: 'ler', gerund: 'Lendo', done: 'Lido', placeholder: 'Ex.: Torto Arado', color: '#d6a54a' },
-  place:  { label: 'Lugar', plural: 'Lugares', emoji: '📍', verb: 'visitar', gerund: 'Visitando', done: 'Visitado', placeholder: 'Ex.: Ouro Preto', color: '#4f8a96' },
-  anime:  { label: 'Anime', plural: 'Animes', emoji: '🍥', verb: 'assistir', gerund: 'Assistindo', done: 'Assistido', placeholder: 'Ex.: Frieren', color: '#c2185b' },
-  album:  { label: 'Álbum', plural: 'Álbuns', emoji: '💿', verb: 'ouvir', gerund: 'Ouvindo', done: 'Ouvido', placeholder: 'Ex.: Clube da Esquina', color: '#9a6fc4' },
+  movie:  { label: 'Filme', plural: 'Filmes', emoji: '🎬', verb: 'assistir', gerund: 'Assistindo', done: 'Assistido', placeholder: 'Ex.: Cidade de Deus', color: '#8a1424' },
+  series: { label: 'Série', plural: 'Séries', emoji: '📺', verb: 'assistir', gerund: 'Assistindo', done: 'Assistida', placeholder: 'Ex.: Sintonia', color: '#a5503a' },
+  game:   { label: 'Jogo', plural: 'Jogos', emoji: '🎮', verb: 'jogar', gerund: 'Jogando', done: 'Zerado', placeholder: 'Ex.: Hollow Knight', color: '#5f7a46' },
+  book:   { label: 'Livro', plural: 'Livros', emoji: '📚', verb: 'ler', gerund: 'Lendo', done: 'Lido', placeholder: 'Ex.: Torto Arado', color: '#9b7a3c' },
+  place:  { label: 'Lugar', plural: 'Lugares', emoji: '📍', verb: 'visitar', gerund: 'Visitando', done: 'Visitado', placeholder: 'Ex.: Ouro Preto', color: '#3f6a7a' },
+  anime:  { label: 'Anime', plural: 'Animes', emoji: '🍥', verb: 'assistir', gerund: 'Assistindo', done: 'Assistido', placeholder: 'Ex.: Frieren', color: '#8e3a5e' },
+  album:  { label: 'Álbum', plural: 'Álbuns', emoji: '💿', verb: 'ouvir', gerund: 'Ouvindo', done: 'Ouvido', placeholder: 'Ex.: Clube da Esquina', color: '#5b4a86' },
 };
 
 /** Cores de status do tema escuro (padrão). Use statusColor() para o tema atual. */

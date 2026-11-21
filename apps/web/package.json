@@ -9,9 +9,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@fontsource/anton": "^5.3.0",
-    "@fontsource/archivo": "^5.3.0",
-    "@fontsource/courier-prime": "^5.3.0",
+    "@fontsource/bodoni-moda": "^5.3.0",
+    "@fontsource/jost": "^5.3.0",
     "@listenimento/core": "*",
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.45.0",

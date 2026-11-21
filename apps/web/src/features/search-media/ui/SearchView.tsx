@@ -83,7 +83,7 @@ export function SearchView() {
 
   return (
     <div className="flex flex-col gap-6">
-      <PageTitle kicker="Bilheteria · escolha a sessão" title="Buscar" />
+      <PageTitle kicker="Ato II · Repertório" title="Buscar" />
       <TypeTabs value={type} onChange={setType} />
 
       <form onSubmit={onSubmit} className="flex gap-3">
@@ -102,7 +102,7 @@ export function SearchView() {
       {error && <p className="alert">{error}</p>}
 
       {results.length === 0 && !loading && submitted && !error && (
-        <p className="font-mono text-muted">Nenhuma sessão encontrada para “{submitted}”.</p>
+        <p className="font-light text-muted">Nada no repertório para “{submitted}”.</p>
       )}
 
       <ul className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
@@ -111,7 +111,7 @@ export function SearchView() {
         ))}
       </ul>
 
-      {loading && <p className="text-center font-mono text-xs uppercase tracking-[0.2em] text-muted">Rodando o projetor…</p>}
+      {loading && <p className="text-center font-light text-xs uppercase tracking-[0.2em] text-muted">Abrindo as cortinas…</p>}
       {hasMore && !loading && (
         <button className="btn-ghost self-center" onClick={() => run(type, submitted, page + 1)}>
           Carregar mais
@@ -149,8 +149,8 @@ function SearchResultCard({
     <li className="flex flex-col gap-3">
       <MediaCover src={result.imageUrl} alt={result.title} mediaType={result.mediaType} />
       <div className="min-w-0">
-        <p className="line-clamp-2 text-sm font-semibold leading-snug text-fg">{result.title}</p>
-        <p className="truncate font-mono text-xs text-muted">
+        <p className="line-clamp-2 font-display text-[1.05rem] leading-snug text-fg">{result.title}</p>
+        <p className="truncate font-light text-xs text-muted">
           {[result.year, result.subtitle].filter(Boolean).join(' · ')}
         </p>
       </div>
