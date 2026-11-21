@@ -135,38 +135,24 @@ export function Card({
   );
 }
 
-/** Veludo carmim: dobras com luz e sombra + queda de luz vertical. */
-export function Velvet({ folds = 6, style, children }: { folds?: number; style?: StyleProp<ViewStyle>; children?: ReactNode }) {
+/** Carmim sólido com gradiente suave de luz (sem dobras/textura). */
+export function Crimson({ style, children }: { style?: StyleProp<ViewStyle>; children?: ReactNode }) {
   const t = useTheme();
-  const colors: string[] = [];
-  const locations: number[] = [];
-  const cycle = [t.accentDeep, t.accent, t.accentHi, t.accent];
-  const steps = folds * cycle.length;
-  for (let i = 0; i <= steps; i++) {
-    colors.push(cycle[i % cycle.length]!);
-    locations.push(i / steps);
-  }
   return (
-    <View style={[{ overflow: 'hidden' }, style]}>
-      <LinearGradient
-        colors={colors as [string, string, ...string[]]}
-        locations={locations as [number, number, ...number[]]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-        style={StyleSheet.absoluteFill}
-      />
-      <LinearGradient colors={['rgba(255,255,255,0.06)', 'transparent', 'rgba(0,0,0,0.42)']} locations={[0, 0.35, 1]} style={StyleSheet.absoluteFill} />
+    <View style={[{ overflow: 'hidden', backgroundColor: t.accent }, style]}>
+      <LinearGradient colors={[t.accentHi, t.accent, t.accentDeep]} locations={[0, 0.45, 1]} start={{ x: 0.2, y: 0 }} end={{ x: 0.8, y: 1 }} style={StyleSheet.absoluteFill} />
+      <LinearGradient colors={['rgba(255,255,255,0.10)', 'transparent']} locations={[0, 0.5]} style={StyleSheet.absoluteFill} />
       {children}
     </View>
   );
 }
 
-/** Faixa de veludo com filete de ouro, projetando sombra sobre a tela. */
-export function VelvetBand({ height = 6 }: { height?: number }) {
+/** Filete de acento no topo: gradiente carmim com sombra suave. */
+export function AccentBar({ height = 3 }: { height?: number }) {
   const t = useTheme();
   return (
-    <View style={[{ zIndex: 2 }, elevation(2, { ...t, mode: 'dark' })]}>
-      <Velvet folds={14} style={{ height, borderBottomWidth: 1, borderBottomColor: t.goldHi }} />
+    <View style={[{ zIndex: 2 }, elevation(1, t)]}>
+      <LinearGradient colors={[t.accentDeep, t.accentHi, t.accentDeep]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height }} />
     </View>
   );
 }

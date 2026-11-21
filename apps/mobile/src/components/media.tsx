@@ -3,10 +3,10 @@ import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MEDIA_TYPE_INFO, statusLabel, type ItemStatus, type MediaType } from '@listenimento/core';
 import { elevation, fonts, useTheme } from '@/theme';
-import { Card, Velvet } from './ui';
+import { Card, Crimson } from './ui';
 
 /**
- * Cartaz 2:3 com sombra. Sem capa: inicial em Bodoni itálico sobre o veludo,
+ * Cartaz 2:3 com sombra. Sem capa: inicial em Bodoni itálico sobre carmim,
  * como a capa de um programa de ópera.
  */
 export function MediaThumb({ uri, mediaType, title, width = 60 }: { uri: string | null; mediaType: MediaType; title: string; width?: number }) {
@@ -22,7 +22,7 @@ export function MediaThumb({ uri, mediaType, title, width = 60 }: { uri: string 
         {uri && !projected ? (
           <Image source={{ uri }} style={{ flex: 1 }} contentFit="cover" transition={150} />
         ) : (
-          <Velvet folds={2} style={StyleSheet.absoluteFill}>
+          <Crimson style={StyleSheet.absoluteFill}>
             <View style={styles.centerFill}>
               {uri ? (
                 <View style={{ width: '80%', borderTopLeftRadius: 999, borderTopRightRadius: 999, overflow: 'hidden', borderWidth: 1, borderColor: '#e7cd8f' }}>
@@ -42,7 +42,7 @@ export function MediaThumb({ uri, mediaType, title, width = 60 }: { uri: string 
                 </>
               )}
             </View>
-          </Velvet>
+          </Crimson>
         )}
         {/* luz no topo e vinheta embaixo */}
         <LinearGradient

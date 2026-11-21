@@ -3,7 +3,7 @@ import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { supabase } from '@/lib/supabase';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Backdrop, Button, Chandelier, ErrorText, GoldRule, Input, Label, Logo, VelvetBand } from '@/components/ui';
+import { Backdrop, Button, Chandelier, ErrorText, GoldRule, Input, Label, Logo, AccentBar } from '@/components/ui';
 import { elevation, fonts, useTheme } from '@/theme';
 
 export default function LoginScreen() {
@@ -48,8 +48,8 @@ export default function LoginScreen() {
   return (
     <View style={{ flex: 1 }}>
       <Backdrop />
-      <View style={{ height: insets.top, backgroundColor: t.accentDeep }} />
-      <VelvetBand height={8} />
+      <View style={{ height: insets.top, backgroundColor: t.bg }} />
+      <AccentBar />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
           {/* cartão em arco, como uma janela de camarote */}

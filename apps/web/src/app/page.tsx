@@ -5,15 +5,13 @@ import { ThemeToggle } from '@/features/theme/ui/ThemeToggle';
 
 export default function LandingPage() {
   return (
-    <main className="velvet relative flex min-h-dvh items-end justify-center overflow-hidden px-4 pt-16">
+    <main className="relative flex min-h-dvh items-end justify-center overflow-hidden bg-[radial-gradient(90%_70%_at_50%_35%,var(--accent)_0%,var(--accent-deep)_55%,#12040a_100%)] px-4 pt-16">
       <div className="absolute right-4 top-4 z-20">
         <ThemeToggle className="text-accent-fg" />
       </div>
 
-      {/* sanefa: faixa de veludo mais escura com filete de ouro */}
-      <div aria-hidden className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-black/45 to-transparent" />
 
-      {/* proscênio em arco, recortado no veludo */}
+      {/* proscênio em arco sobre o fundo carmim */}
       <section className="arch relative flex w-full max-w-xl flex-col items-center bg-bg px-8 pb-16 pt-24 text-center shadow-[0_0_0_1px_var(--gold-hi),0_0_0_10px_rgba(0,0,0,0.12),0_0_0_11px_color-mix(in_srgb,var(--gold-hi)_55%,transparent),0_-30px_80px_rgba(0,0,0,0.45)] sm:pt-28">
         {/* luz de palco caindo de cima */}
         <div aria-hidden className="arch pointer-events-none absolute inset-0 bg-[radial-gradient(70%_55%_at_50%_0%,var(--bg-spot),transparent_70%)]" />

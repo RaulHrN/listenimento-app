@@ -11,8 +11,8 @@ interface Props {
 /**
  * Cartaz 2:3 para a grade ficar alinhada.
  * Filmes, séries, animes e livros preenchem o cartaz; capas largas
- * (jogos, lugares, álbuns) aparecem num arco sobre o veludo.
- * Sem capa: inicial em Bodoni sobre o veludo, como um programa de ópera.
+ * (jogos, lugares, álbuns) aparecem num arco sobre fundo carmim.
+ * Sem capa: inicial em Bodoni sobre carmim, como a capa de um programa de ópera.
  */
 export function MediaCover({ src, alt, mediaType, className = '' }: Props) {
   const info = MEDIA_TYPE_INFO[mediaType];
@@ -24,7 +24,7 @@ export function MediaCover({ src, alt, mediaType, className = '' }: Props) {
       {src && !projected && <img src={src} alt={alt} loading="lazy" className="h-full w-full object-cover" />}
 
       {src && projected && (
-        <div className="velvet flex h-full w-full items-center justify-center p-4">
+        <div className="crimson flex h-full w-full items-center justify-center p-4">
           <div className="arch w-full overflow-hidden shadow-[0_0_0_1px_#e7cd8f,0_14px_30px_rgba(0,0,0,0.55)]">
             <img src={src} alt={alt} loading="lazy" className={`w-full object-cover ${mediaType === 'album' ? 'aspect-square' : 'aspect-[4/5]'}`} />
           </div>
@@ -32,7 +32,7 @@ export function MediaCover({ src, alt, mediaType, className = '' }: Props) {
       )}
 
       {!src && (
-        <div className="velvet flex h-full w-full flex-col items-center justify-center">
+        <div className="crimson flex h-full w-full flex-col items-center justify-center">
           <span className="font-display text-7xl italic leading-none text-[#f3ead9] drop-shadow-[0_6px_14px_rgba(0,0,0,0.5)]">{initial}</span>
           <span className="mt-4 h-px w-8 bg-[#e7cd8f]/70" />
           <span className="mt-3 text-[0.6rem] font-medium uppercase tracking-[0.3em] text-[#f3ead9]/75">{info.label}</span>

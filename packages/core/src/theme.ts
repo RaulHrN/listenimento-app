@@ -2,8 +2,8 @@ import type { ItemStatus } from './types';
 
 /**
  * Identidade visual do Listenimento: modernismo dos teatros de ópera.
- * Geometria limpa, arcos de proscênio, lustres em estrela, veludo carmim,
- * folha de ouro e marfim. Profundidade por luz e sombra, sem ornamento demais.
+ * Geometria limpa, arcos de proscênio, lustres em estrela, carmim, folha de
+ * ouro e marfim. Só cores sólidas, gradientes e sombras para dar profundidade.
  *
  * Dois temas: "light" (foyer de dia) e "dark" (noite de estreia).
  * O site espelha estes valores em CSS (apps/web/src/app/globals.css).
@@ -21,7 +21,7 @@ export interface Palette {
   fg: string;
   muted: string;
   line: string;
-  /** veludo carmim: sombra, base e brilho */
+  /** carmim: sombra, base e brilho */
   accentDeep: string;
   accent: string;
   accentHi: string;

@@ -2,7 +2,7 @@ import { StyleSheet, View } from 'react-native';
 import { Tabs } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Circle, Line, Path } from 'react-native-svg';
-import { Chandelier, Logo, VelvetBand } from '@/components/ui';
+import { AccentBar, Chandelier, Logo } from '@/components/ui';
 import { elevation, fonts, useTheme } from '@/theme';
 
 /** Ícones geométricos de traço fino (modernismo). */
@@ -37,14 +37,14 @@ function TabIcon({ name, color }: { name: 'lista' | 'buscar' | 'programa'; color
   );
 }
 
-/** Cabeçalho: faixa de veludo + barra translúcida com lustre e logotipo. */
+/** Cabeçalho: filete carmim + barra com lustre e logotipo. */
 function OperaHeader() {
   const t = useTheme();
   const insets = useSafeAreaInsets();
   return (
     <View style={{ zIndex: 10, backgroundColor: t.bg }}>
-      <View style={{ height: insets.top, backgroundColor: t.accentDeep }} />
-      <VelvetBand />
+      <View style={{ height: insets.top, backgroundColor: t.bg }} />
+      <AccentBar />
       <View style={[styles.bar, { borderBottomColor: t.line }]}>
         <Chandelier size={24} />
         <Logo size={22} />

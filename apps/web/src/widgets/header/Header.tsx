@@ -16,7 +16,7 @@ export function Header({ displayName }: { displayName: string | null }) {
 
   return (
     <header className="relative z-30 sm:sticky sm:top-0">
-      <div className="velvet-band" />
+      <div className="accent-bar" />
       <div className="border-b border-line bg-[color-mix(in_srgb,var(--bg)_82%,transparent)] backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-10 gap-y-1 px-4 py-4">
           <Link href="/lista" className="flex items-center gap-2.5">

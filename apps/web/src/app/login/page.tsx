@@ -9,7 +9,7 @@ export const metadata = { title: 'Bilheteria' };
 export default function LoginPage() {
   return (
     <main className="flex min-h-dvh flex-col">
-      <div className="velvet-band" />
+      <div className="accent-bar" />
       <div className="flex justify-end px-4 pt-4">
         <ThemeToggle className="text-fg" />
       </div>

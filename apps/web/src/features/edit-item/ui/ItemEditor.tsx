@@ -98,7 +98,7 @@ export function ItemEditor({ item, onClose, onSaved, onRemoved }: Props) {
         className="card max-h-[92dvh] w-full max-w-2xl overflow-y-auto !shadow-3"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="velvet-band !h-1.5" />
+        <div className="accent-bar" />
         <div className="p-6 sm:p-8">
           <div className="flex gap-5">
             <MediaCover src={item.image_url} alt={item.title} mediaType={item.media_type} className="w-28 shrink-0 sm:w-36" />
