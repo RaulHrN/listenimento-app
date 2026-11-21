@@ -96,7 +96,9 @@ jobs:
         working-directory: apps/mobile/android
         run: |
           sed -i '/^org.gradle.jvmargs=/d' gradle.properties
-          echo 'org.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=1g -Dfile.encoding=UTF-8' >> gradle.properties
+          # o arquivo gerado não termina com quebra de linha: garante uma antes de anexar
+          printf '\norg.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=1g -Dfile.encoding=UTF-8\n' >> gradle.properties
+          tail -3 gradle.properties
 
       - name: Compilar APK (release)
         working-directory: apps/mobile/android
