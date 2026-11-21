@@ -2,18 +2,40 @@
 
 Lista pessoal de tudo que você quer assistir, jogar, ler, ouvir e visitar — no celular e na web, sincronizada pela sua conta.
 
+🎬 Filmes · 📺 Séries · 🎮 Jogos · 📚 Livros · 📍 Lugares · 🍥 Animes · 💿 Álbuns
+
 ## Estrutura
 
 ```
 acervo/
 ├── apps/
-│   ├── web/        # Next.js (App Router) + Tailwind
-│   └── mobile/     # Expo (React Native) + Expo Router
+│   ├── web/        # Next.js 15 (App Router) + Tailwind v4, organizado em FSD
+│   └── mobile/     # Expo SDK 58 + Expo Router
 ├── packages/
-│   └── core/       # Tipos, rótulos pt-BR e serviços compartilhados (Supabase)
-└── supabase/
-    ├── migrations/ # Schema + RLS
-    └── functions/  # Edge Function "search" (proxy das APIs externas)
+│   └── core/       # Tipos, rótulos pt-BR e serviços Supabase compartilhados
+├── supabase/
+│   ├── migrations/ # Schema + RLS
+│   └── functions/  # Edge Function "search" (proxy das APIs externas)
+└── docs/
+    ├── SETUP.md    # Como configurar e rodar
+    └── ETAPAS.md   # Etapas/commits do projeto
 ```
 
-O guia completo de setup fica em `docs/SETUP.md` (adicionado na última etapa).
+## Como funciona
+
+```
+App / Site ──(login Supabase)──► Supabase Auth
+     │
+     ├── busca ──► Edge Function "search" ──► TMDB · RAWG · Google Books · OpenTripMap · Jikan · Deezer
+     │
+     └── salvar/editar ──► Postgres (user_items, protegido por RLS)
+```
+
+## Começando
+
+```bash
+npm install
+# configure Supabase e chaves → docs/SETUP.md
+npm run dev:web
+npm run dev:mobile
+```
