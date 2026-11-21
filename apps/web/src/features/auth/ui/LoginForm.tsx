@@ -59,16 +59,16 @@ export function LoginForm() {
   return (
     <form onSubmit={onSubmit} className="flex w-full flex-col gap-4">
       {mode === 'signup' && (
-        <label className="flex flex-col gap-1 text-sm">
+        <label className="flex flex-col gap-1 font-mono text-xs font-bold uppercase tracking-widest">
           Nome
           <input className="input" value={name} onChange={(e) => setName(e.target.value)} placeholder="Como quer ser chamado" />
         </label>
       )}
-      <label className="flex flex-col gap-1 text-sm">
+      <label className="flex flex-col gap-1 font-mono text-xs font-bold uppercase tracking-widest">
         E-mail
         <input className="input" type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} />
       </label>
-      <label className="flex flex-col gap-1 text-sm">
+      <label className="flex flex-col gap-1 font-mono text-xs font-bold uppercase tracking-widest">
         Senha
         <input
           className="input"
@@ -81,23 +81,23 @@ export function LoginForm() {
         />
       </label>
 
-      {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700 dark:bg-red-950/40 dark:text-red-300">{error}</p>}
-      {info && <p className="rounded-lg bg-emerald-50 px-3 py-2 text-sm text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300">{info}</p>}
+      {error && <p className="alert">{error}</p>}
+      {info && <p className="border-[3px] border-ink bg-brass px-3 py-2 font-mono text-sm text-ink">{info}</p>}
 
-      <button className="btn-primary py-2.5" disabled={loading}>
-        {loading ? 'Aguarde…' : mode === 'signin' ? 'Entrar' : 'Criar conta'}
+      <button className="btn-primary mt-2 py-3 text-lg" disabled={loading}>
+        {loading ? 'Imprimindo…' : mode === 'signin' ? 'Entrar na sessão' : 'Emitir meu ingresso'}
       </button>
 
       <button
         type="button"
-        className="text-sm text-zinc-600 hover:underline dark:text-zinc-400"
+        className="font-mono text-sm text-ink/70 underline decoration-2 underline-offset-4 hover:text-curtain"
         onClick={() => {
           setMode(mode === 'signin' ? 'signup' : 'signin');
           setError(null);
           setInfo(null);
         }}
       >
-        {mode === 'signin' ? 'Não tem conta? Cadastre-se' : 'Já tem conta? Entrar'}
+        {mode === 'signin' ? 'Primeira vez? Crie sua conta' : 'Já tem ingresso? Entrar'}
       </button>
     </form>
   );

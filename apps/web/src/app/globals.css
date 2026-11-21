@@ -1,38 +1,265 @@
 @import 'tailwindcss';
 
+/* =====================================================================
+   Listenimento — brutalismo + cinema de rua antigo
+   madeira escura · vermelho de cortina · latão · papel de ingresso
+   ===================================================================== */
+
 @theme {
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --color-brand-50: #eef2ff;
-  --color-brand-100: #e0e7ff;
-  --color-brand-500: #6366f1;
-  --color-brand-600: #4f46e5;
-  --color-brand-700: #4338ca;
+  --font-display: 'Anton', Impact, 'Arial Narrow', sans-serif;
+  --font-sans: 'Archivo', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Courier Prime', 'Courier New', ui-monospace, monospace;
+
+  --color-ink: #0c0806;
+  --color-wood-900: #170d08;
+  --color-wood-800: #21130c;
+  --color-wood-700: #2d1a10;
+  --color-wood-600: #3c2416;
+  --color-wood-500: #5a3622;
+  --color-curtain-dark: #5c070c;
+  --color-curtain: #8e0e15;
+  --color-curtain-bright: #b5121b;
+  --color-brass-dark: #9c7430;
+  --color-brass: #d6a54a;
+  --color-bulb: #ffd98a;
+  --color-paper: #f1e4c3;
+  --color-paper-dark: #d9c59a;
+  --color-muted: #b8a283;
+  --color-neon: #ff4d3d;
+
+  --shadow-brut: 6px 6px 0 0 #0c0806;
+  --shadow-brut-sm: 4px 4px 0 0 #0c0806;
+  --shadow-brut-red: 6px 6px 0 0 #5c070c;
+
+  --animate-bulbs: bulbs 1.6s steps(2, jump-none) infinite;
+}
+
+@keyframes bulbs {
+  0% { opacity: 1; }
+  100% { opacity: 0.55; }
 }
 
 :root {
-  color-scheme: light dark;
+  color-scheme: dark;
 }
 
 body {
-  @apply bg-zinc-50 text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100;
+  font-family: var(--font-sans);
+  color: var(--color-paper);
+  background-color: var(--color-wood-900);
+  /* tábuas de madeira: veios finos + juntas entre tábuas */
+  background-image:
+    repeating-linear-gradient(0deg, transparent 0 158px, rgba(0, 0, 0, 0.6) 158px 161px, rgba(255, 220, 170, 0.04) 161px 162px),
+    repeating-linear-gradient(0deg, rgba(255, 210, 160, 0.025) 0 1px, transparent 1px 7px),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.12) 0 3px, transparent 3px 23px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.35), transparent 18%, transparent 82%, rgba(0, 0, 0, 0.35));
+  -webkit-font-smoothing: antialiased;
 }
 
+::selection {
+  background: var(--color-curtain-bright);
+  color: var(--color-paper);
+}
+
+/* ---------- tipografia ---------- */
+@utility font-marquee {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  line-height: 0.95;
+}
+
+@utility kicker {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-brass);
+}
+
+/* ---------- superfícies ---------- */
+@utility wood {
+  background-color: var(--color-wood-700);
+  background-image:
+    repeating-linear-gradient(90deg, rgba(255, 210, 160, 0.035) 0 1px, transparent 1px 6px),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.18) 0 2px, transparent 2px 19px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.25));
+}
+
+@utility panel {
+  @apply wood border-[3px] border-ink shadow-brut;
+  outline: 2px solid var(--color-brass-dark);
+  outline-offset: -8px;
+}
+
+@utility curtain {
+  background-color: var(--color-curtain);
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      var(--color-curtain-dark) 0,
+      var(--color-curtain) 14px,
+      var(--color-curtain-bright) 24px,
+      var(--color-curtain) 34px,
+      var(--color-curtain-dark) 48px
+    ),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.35), transparent 30%, transparent 75%, rgba(0, 0, 0, 0.5));
+  background-blend-mode: multiply;
+}
+
+/* sanefa da cortina com franja de latão */
+@utility valance {
+  position: relative;
+  height: 18px;
+  background-image: radial-gradient(circle at 50% 0, var(--color-curtain) 0 13px, var(--color-brass) 13px 15px, transparent 15.5px);
+  background-size: 30px 18px;
+  background-repeat: repeat-x;
+  filter: drop-shadow(0 4px 0 rgba(0, 0, 0, 0.55));
+}
+
+/* fileira de lâmpadas do letreiro */
+@utility bulbs {
+  height: 14px;
+  background-image: radial-gradient(circle, var(--color-bulb) 0 3px, var(--color-brass-dark) 3.5px 5px, transparent 5.5px);
+  background-size: 20px 14px;
+  background-repeat: repeat-x;
+  background-position: center;
+  filter: drop-shadow(0 0 4px rgba(255, 200, 110, 0.7));
+}
+
+/* ingresso de papel com recortes laterais */
+@utility ticket {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  background-image: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.025) 0 1px, transparent 1px 4px);
+  -webkit-mask:
+    radial-gradient(circle 12px at 0 50%, transparent 97%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle 12px at 100% 50%, transparent 97%, #000) right / 51% 100% no-repeat;
+  mask:
+    radial-gradient(circle 12px at 0 50%, transparent 97%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle 12px at 100% 50%, transparent 97%, #000) right / 51% 100% no-repeat;
+}
+
+/* moldura de cartaz */
+@utility poster-frame {
+  background: var(--color-ink);
+  border: 3px solid var(--color-ink);
+  outline: 2px solid var(--color-brass-dark);
+  outline-offset: -6px;
+  box-shadow: var(--shadow-brut);
+}
+
+/* carimbo de status */
+@utility stamp {
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid currentColor;
+  padding: 1px 6px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+  background: rgba(12, 8, 6, 0.85);
+}
+
+/* ---------- controles ---------- */
 @utility input {
-  @apply w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 dark:border-zinc-700 dark:bg-zinc-900;
+  width: 100%;
+  border: 3px solid var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-paper);
+  padding: 0.6rem 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  outline: 2px solid var(--color-brass-dark);
+  outline-offset: -5px;
+  border-radius: 0;
+  transition: box-shadow 0.1s, outline-color 0.1s;
+
+  &::placeholder {
+    color: #7d6a55;
+  }
+  &:focus {
+    outline-color: var(--color-brass);
+    box-shadow: 4px 4px 0 0 var(--color-curtain-bright);
+  }
+  & option {
+    background: var(--color-ink);
+  }
 }
 
 @utility btn {
-  @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 3px solid var(--color-ink);
+  padding: 0.55rem 1.1rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  box-shadow: var(--shadow-brut-sm);
+  transition: transform 0.08s, box-shadow 0.08s, background-color 0.12s;
+  cursor: pointer;
+
+  &:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 0 0 var(--color-ink);
+  }
+  &:active {
+    transform: translate(4px, 4px);
+    box-shadow: none;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    transform: none;
+    box-shadow: var(--shadow-brut-sm);
+  }
 }
 
 @utility btn-primary {
-  @apply btn bg-brand-600 text-white hover:bg-brand-700;
+  @apply btn curtain;
+  color: var(--color-paper);
+  text-shadow: 2px 2px 0 var(--color-ink);
+}
+
+@utility btn-brass {
+  @apply btn;
+  background: var(--color-brass);
+  color: var(--color-ink);
+  &:hover {
+    background: var(--color-bulb);
+  }
 }
 
 @utility btn-ghost {
-  @apply btn text-zinc-700 hover:bg-zinc-200/60 dark:text-zinc-300 dark:hover:bg-zinc-800;
+  @apply btn;
+  background: var(--color-wood-600);
+  color: var(--color-paper);
+  &:hover {
+    background: var(--color-wood-500);
+  }
 }
 
 @utility btn-danger {
-  @apply btn text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40;
+  @apply btn;
+  background: var(--color-ink);
+  color: var(--color-neon);
+  border-color: var(--color-ink);
+}
+
+@utility alert {
+  border: 3px solid var(--color-ink);
+  background: var(--color-curtain-dark);
+  color: var(--color-paper);
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  box-shadow: var(--shadow-brut-sm);
 }

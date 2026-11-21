@@ -6,25 +6,28 @@ import { StatusBadge } from './StatusBadge';
 export function ItemCard({ item, onClick }: { item: UserItem; onClick: () => void }) {
   return (
     <li>
-      <button type="button" onClick={onClick} className="group flex w-full flex-col gap-2 text-left">
-        <div className="relative">
-          <MediaCover src={item.image_url} alt={item.title} mediaType={item.media_type} className="transition group-hover:opacity-90" />
-          <span className="absolute left-2 top-2 rounded-md bg-black/60 px-1.5 py-0.5 text-xs text-white">
+      <button type="button" onClick={onClick} className="group flex w-full flex-col text-left">
+        <div className="relative transition group-hover:-translate-x-0.5 group-hover:-translate-y-0.5">
+          <MediaCover src={item.image_url} alt={item.title} mediaType={item.media_type} />
+          <span className="absolute left-2 top-2 border-2 border-ink bg-paper px-1 text-xs shadow-[2px_2px_0_#0c0806]">
             {MEDIA_TYPE_INFO[item.media_type].emoji}
           </span>
           {item.priority > 0 && (
-            <span className="absolute right-2 top-2 rounded-md bg-amber-500 px-1.5 py-0.5 text-[10px] font-bold text-white">
+            <span className="font-marquee absolute right-2 top-2 border-2 border-ink bg-brass px-1.5 text-sm text-ink shadow-[2px_2px_0_#0c0806]">
               {'!'.repeat(item.priority)}
             </span>
           )}
+          <div className="absolute bottom-2 left-2">
+            <StatusBadge status={item.status} mediaType={item.media_type} />
+          </div>
         </div>
-        <div className="min-w-0">
-          <p className="line-clamp-2 text-sm font-medium leading-snug">{item.title}</p>
-          <p className="truncate text-xs text-zinc-500">{[item.year, item.subtitle].filter(Boolean).join(' · ')}</p>
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <StatusBadge status={item.status} mediaType={item.media_type} />
-          {item.rating && <Stars value={item.rating} />}
+        {/* canhoto do ingresso */}
+        <div className="mt-3 border-[3px] border-ink bg-paper px-2.5 py-2 text-ink shadow-brut-sm">
+          <p className="line-clamp-2 text-sm font-extrabold uppercase leading-tight">{item.title}</p>
+          <div className="mt-1 flex items-center justify-between gap-2 border-t-2 border-dashed border-ink/30 pt-1">
+            <p className="truncate font-mono text-[11px]">{[item.year, item.subtitle].filter(Boolean).join(' · ') || '—'}</p>
+            {item.rating ? <Stars value={item.rating} tone="ink" /> : null}
+          </div>
         </div>
       </button>
     </li>

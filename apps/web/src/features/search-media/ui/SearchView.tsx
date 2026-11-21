@@ -17,6 +17,7 @@ import {
 import { getSupabase } from '@/shared/lib/supabase/client';
 import { TypeTabs } from '@/shared/ui/TypeTabs';
 import { MediaCover } from '@/entities/media/ui/MediaCover';
+import { PageTitle } from '@/shared/ui/Marquee';
 
 export function SearchView() {
   const supabase = getSupabase();
@@ -81,11 +82,11 @@ export function SearchView() {
   const info = MEDIA_TYPE_INFO[type];
 
   return (
-    <div className="flex flex-col gap-5">
-      <h1 className="text-2xl font-bold">Buscar</h1>
+    <div className="flex flex-col gap-6">
+      <PageTitle kicker="Bilheteria · escolha a sessão" title="Buscar" />
       <TypeTabs value={type} onChange={setType} />
 
-      <form onSubmit={onSubmit} className="flex gap-2">
+      <form onSubmit={onSubmit} className="flex gap-3">
         <input
           className="input"
           value={query}
@@ -93,24 +94,24 @@ export function SearchView() {
           placeholder={type === 'place' ? 'Digite uma cidade. Ex.: Ouro Preto' : info.placeholder}
           autoFocus
         />
-        <button className="btn-primary" disabled={loading || query.trim().length < 2}>
+        <button className="btn-primary shrink-0 px-6" disabled={loading || query.trim().length < 2}>
           Buscar
         </button>
       </form>
 
-      {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700 dark:bg-red-950/40 dark:text-red-300">{error}</p>}
+      {error && <p className="alert">{error}</p>}
 
       {results.length === 0 && !loading && submitted && !error && (
-        <p className="text-zinc-500">Nada encontrado para “{submitted}”.</p>
+        <p className="font-mono text-muted">Nenhuma sessão encontrada para “{submitted}”.</p>
       )}
 
-      <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+      <ul className="grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
         {results.map((r) => (
           <SearchResultCard key={itemKey(r)} result={r} savedId={saved.get(itemKey(r))} onAdd={onAdd} />
         ))}
       </ul>
 
-      {loading && <p className="text-center text-sm text-zinc-500">Buscando…</p>}
+      {loading && <p className="text-center font-mono text-sm uppercase tracking-widest text-brass">Rodando o projetor…</p>}
       {hasMore && !loading && (
         <button className="btn-ghost self-center" onClick={() => run(type, submitted, page + 1)}>
           Carregar mais
@@ -145,21 +146,21 @@ function SearchResultCard({
   }
 
   return (
-    <li className="flex flex-col gap-2">
+    <li className="flex flex-col gap-3">
       <MediaCover src={result.imageUrl} alt={result.title} mediaType={result.mediaType} />
       <div className="min-w-0">
-        <p className="line-clamp-2 text-sm font-medium leading-snug">{result.title}</p>
-        <p className="truncate text-xs text-zinc-500">
+        <p className="line-clamp-2 text-sm font-extrabold uppercase leading-tight text-paper">{result.title}</p>
+        <p className="truncate font-mono text-xs text-muted">
           {[result.year, result.subtitle].filter(Boolean).join(' · ')}
         </p>
       </div>
       {savedId ? (
-        <Link href={`/lista?item=${savedId}`} className="btn-ghost justify-start px-2 py-1 text-xs text-emerald-600">
+        <Link href={`/lista?item=${savedId}`} className="stamp self-start text-[#8fbf6a]">
           ✓ Na sua lista
         </Link>
       ) : (
         <select
-          className="input py-1.5 text-xs"
+          className="input cursor-pointer py-1.5 text-xs"
           disabled={busy}
           value=""
           onChange={(e) => e.target.value && add(e.target.value as ItemStatus)}

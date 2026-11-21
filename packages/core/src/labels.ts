@@ -1,4 +1,5 @@
 import type { ItemStatus, MediaType } from './types';
+import { CINEMA } from './theme';
 
 interface MediaTypeInfo {
   label: string;
@@ -15,20 +16,20 @@ interface MediaTypeInfo {
 }
 
 export const MEDIA_TYPE_INFO: Record<MediaType, MediaTypeInfo> = {
-  movie:  { label: 'Filme', plural: 'Filmes', emoji: '🎬', verb: 'assistir', gerund: 'Assistindo', done: 'Assistido', placeholder: 'Ex.: Cidade de Deus', color: '#e11d48' },
-  series: { label: 'Série', plural: 'Séries', emoji: '📺', verb: 'assistir', gerund: 'Assistindo', done: 'Assistida', placeholder: 'Ex.: Sintonia', color: '#7c3aed' },
-  game:   { label: 'Jogo', plural: 'Jogos', emoji: '🎮', verb: 'jogar', gerund: 'Jogando', done: 'Zerado', placeholder: 'Ex.: Hollow Knight', color: '#059669' },
-  book:   { label: 'Livro', plural: 'Livros', emoji: '📚', verb: 'ler', gerund: 'Lendo', done: 'Lido', placeholder: 'Ex.: Torto Arado', color: '#d97706' },
-  place:  { label: 'Lugar', plural: 'Lugares', emoji: '📍', verb: 'visitar', gerund: 'Visitando', done: 'Visitado', placeholder: 'Ex.: Ouro Preto', color: '#0284c7' },
-  anime:  { label: 'Anime', plural: 'Animes', emoji: '🍥', verb: 'assistir', gerund: 'Assistindo', done: 'Assistido', placeholder: 'Ex.: Frieren', color: '#db2777' },
-  album:  { label: 'Álbum', plural: 'Álbuns', emoji: '💿', verb: 'ouvir', gerund: 'Ouvindo', done: 'Ouvido', placeholder: 'Ex.: Clube da Esquina', color: '#4f46e5' },
+  movie:  { label: 'Filme', plural: 'Filmes', emoji: '🎬', verb: 'assistir', gerund: 'Assistindo', done: 'Assistido', placeholder: 'Ex.: Cidade de Deus', color: '#b5121b' },
+  series: { label: 'Série', plural: 'Séries', emoji: '📺', verb: 'assistir', gerund: 'Assistindo', done: 'Assistida', placeholder: 'Ex.: Sintonia', color: '#c0622e' },
+  game:   { label: 'Jogo', plural: 'Jogos', emoji: '🎮', verb: 'jogar', gerund: 'Jogando', done: 'Zerado', placeholder: 'Ex.: Hollow Knight', color: '#7a9a3a' },
+  book:   { label: 'Livro', plural: 'Livros', emoji: '📚', verb: 'ler', gerund: 'Lendo', done: 'Lido', placeholder: 'Ex.: Torto Arado', color: '#d6a54a' },
+  place:  { label: 'Lugar', plural: 'Lugares', emoji: '📍', verb: 'visitar', gerund: 'Visitando', done: 'Visitado', placeholder: 'Ex.: Ouro Preto', color: '#4f8a96' },
+  anime:  { label: 'Anime', plural: 'Animes', emoji: '🍥', verb: 'assistir', gerund: 'Assistindo', done: 'Assistido', placeholder: 'Ex.: Frieren', color: '#c2185b' },
+  album:  { label: 'Álbum', plural: 'Álbuns', emoji: '💿', verb: 'ouvir', gerund: 'Ouvindo', done: 'Ouvido', placeholder: 'Ex.: Clube da Esquina', color: '#9a6fc4' },
 };
 
 export const STATUS_COLORS: Record<ItemStatus, string> = {
-  wishlist: '#64748b',
-  in_progress: '#2563eb',
-  completed: '#16a34a',
-  dropped: '#9ca3af',
+  wishlist: CINEMA.brass,
+  in_progress: CINEMA.neon,
+  completed: CINEMA.exit,
+  dropped: '#8a7868',
 };
 
 const GENERIC_STATUS: Record<ItemStatus, string> = {

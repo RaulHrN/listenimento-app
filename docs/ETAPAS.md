@@ -28,7 +28,7 @@ auth.users 1──N user_items
 
 ## Próximas ideias
 
-- Listas personalizadas (ex.: "Viagem pro Sul", "Jogar com a Carol")
+- Listas personalizadas (ex.: "Viagem pro Sul", "Jogar com amigos")
 - Tela de detalhes buscando mais dados na API (elenco, onde assistir, mapa do lugar)
 - Login com Google (Supabase Auth)
 - Sugestões aleatórias: "o que eu faço hoje?"

@@ -84,97 +84,102 @@ export function ItemEditor({ item, onClose, onSaved, onRemoved }: Props) {
 
   const overview = typeof item.metadata.overview === 'string' ? item.metadata.overview : null;
 
+  const label = 'flex flex-col gap-1.5 font-mono text-xs font-bold uppercase tracking-widest text-brass';
+
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 p-0 sm:items-center sm:p-4" onClick={onClose}>
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-ink/85 p-0 sm:items-center sm:p-4" onClick={onClose}>
       <div
         role="dialog"
         aria-modal="true"
         aria-label={item.title}
-        className="max-h-[92dvh] w-full max-w-2xl overflow-y-auto rounded-t-2xl bg-white p-6 shadow-xl sm:rounded-2xl dark:bg-zinc-900"
+        className="panel max-h-[92dvh] w-full max-w-2xl overflow-y-auto [outline-offset:-10px]"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex gap-5">
-          <MediaCover src={item.image_url} alt={item.title} mediaType={item.media_type} className="w-28 shrink-0 sm:w-36" />
-          <div className="min-w-0 flex-1">
-            <p className="text-xs uppercase tracking-wide text-zinc-500">
-              {MEDIA_TYPE_INFO[item.media_type].emoji} {MEDIA_TYPE_INFO[item.media_type].label}
-              {item.year ? ` · ${item.year}` : ''}
-            </p>
-            <h2 className="mt-1 text-xl font-bold leading-tight">{item.title}</h2>
-            {item.subtitle && <p className="text-sm text-zinc-500">{item.subtitle}</p>}
-            {overview && <p className="mt-3 line-clamp-5 text-sm text-zinc-600 dark:text-zinc-400">{overview}</p>}
-          </div>
-        </div>
-
-        <div className="mt-6 grid gap-5">
-          <div className="flex flex-wrap gap-2">
-            {ITEM_STATUSES.map((s) => (
-              <button
-                key={s}
-                type="button"
-                onClick={() => set('status', s)}
-                className={`rounded-full border px-3 py-1.5 text-sm transition ${
-                  draft.status === s ? 'border-brand-600 bg-brand-600 text-white' : 'border-zinc-300 dark:border-zinc-700'
-                }`}
-              >
-                {statusLabel(s, item.media_type)}
-              </button>
-            ))}
+        <div className="bulbs animate-bulbs border-b-[3px] border-ink bg-ink py-1" />
+        <div className="p-6">
+          <div className="flex gap-5">
+            <MediaCover src={item.image_url} alt={item.title} mediaType={item.media_type} className="w-28 shrink-0 sm:w-36" />
+            <div className="min-w-0 flex-1">
+              <p className="kicker">
+                {MEDIA_TYPE_INFO[item.media_type].emoji} {MEDIA_TYPE_INFO[item.media_type].label}
+                {item.year ? ` · ${item.year}` : ''}
+              </p>
+              <h2 className="font-marquee mt-1 text-3xl text-paper [text-shadow:3px_3px_0_var(--color-curtain-dark)] sm:text-4xl">{item.title}</h2>
+              {item.subtitle && <p className="mt-1 font-mono text-sm text-muted">{item.subtitle}</p>}
+              {overview && <p className="mt-3 line-clamp-5 text-sm leading-relaxed text-paper/80">{overview}</p>}
+            </div>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            <label className="flex flex-col gap-1 text-sm">
-              Nota
-              <Stars value={draft.rating ?? null} onChange={(v) => set('rating', v)} size="lg" />
-            </label>
-            <label className="flex flex-col gap-1 text-sm">
-              Prioridade
-              <select className="input" value={draft.priority ?? 0} onChange={(e) => set('priority', Number(e.target.value))}>
-                {PRIORITY_LABELS.map((l, i) => (
-                  <option key={l} value={i}>
-                    {l}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="flex flex-col gap-1 text-sm">
-              Comecei em
-              <input type="date" className="input" value={draft.started_at ?? ''} onChange={(e) => set('started_at', e.target.value)} />
-            </label>
-            <label className="flex flex-col gap-1 text-sm">
-              Terminei em
-              <input type="date" className="input" value={draft.finished_at ?? ''} onChange={(e) => set('finished_at', e.target.value)} />
-            </label>
-          </div>
+          <div className="mt-7 grid gap-6">
+            <div className="flex flex-wrap gap-3">
+              {ITEM_STATUSES.map((s) => (
+                <button
+                  key={s}
+                  type="button"
+                  onClick={() => set('status', s)}
+                  className={`font-marquee border-[3px] border-ink px-3 py-1.5 text-sm tracking-wider transition ${
+                    draft.status === s ? 'curtain text-paper shadow-[4px_4px_0_0_var(--color-brass)]' : 'bg-wood-600 text-muted shadow-brut-sm hover:text-paper'
+                  }`}
+                >
+                  {statusLabel(s, item.media_type)}
+                </button>
+              ))}
+            </div>
 
-          <label className="flex flex-col gap-1 text-sm">
-            Tags (separadas por vírgula)
-            <input className="input" value={tagsText} onChange={(e) => setTagsText(e.target.value)} placeholder="ex.: com a carol, férias, coop" />
-          </label>
+            <div className="grid gap-5 sm:grid-cols-2">
+              <div className={label}>
+                Nota
+                <Stars value={draft.rating ?? null} onChange={(v) => set('rating', v)} size="lg" />
+              </div>
+              <label className={label}>
+                Prioridade
+                <select className="input" value={draft.priority ?? 0} onChange={(e) => set('priority', Number(e.target.value))}>
+                  {PRIORITY_LABELS.map((l, i) => (
+                    <option key={l} value={i}>
+                      {l}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className={label}>
+                Comecei em
+                <input type="date" className="input" value={draft.started_at ?? ''} onChange={(e) => set('started_at', e.target.value)} />
+              </label>
+              <label className={label}>
+                Terminei em
+                <input type="date" className="input" value={draft.finished_at ?? ''} onChange={(e) => set('finished_at', e.target.value)} />
+              </label>
+            </div>
 
-          <label className="flex flex-col gap-1 text-sm">
-            Anotações
-            <textarea
-              className="input min-h-24"
-              value={draft.notes ?? ''}
-              onChange={(e) => set('notes', e.target.value)}
-              placeholder="Quem indicou, onde assistir, impressões…"
-            />
-          </label>
+            <label className={label}>
+              Tags (separadas por vírgula)
+              <input className="input" value={tagsText} onChange={(e) => setTagsText(e.target.value)} placeholder="ex.: com amigos, férias, coop" />
+            </label>
 
-          {error && <p className="text-sm text-red-600">{error}</p>}
+            <label className={label}>
+              Anotações
+              <textarea
+                className="input min-h-28"
+                value={draft.notes ?? ''}
+                onChange={(e) => set('notes', e.target.value)}
+                placeholder="Quem indicou, onde assistir, impressões…"
+              />
+            </label>
 
-          <div className="flex items-center justify-between gap-2">
-            <button type="button" className="btn-danger" onClick={remove} disabled={saving}>
-              Remover
-            </button>
-            <div className="flex gap-2">
-              <button type="button" className="btn-ghost" onClick={onClose}>
-                Cancelar
+            {error && <p className="alert">{error}</p>}
+
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t-[3px] border-dashed border-brass-dark pt-5">
+              <button type="button" className="btn-danger" onClick={remove} disabled={saving}>
+                Remover
               </button>
-              <button type="button" className="btn-primary" onClick={save} disabled={saving}>
-                {saving ? 'Salvando…' : 'Salvar'}
-              </button>
+              <div className="flex gap-3">
+                <button type="button" className="btn-ghost" onClick={onClose}>
+                  Cancelar
+                </button>
+                <button type="button" className="btn-primary" onClick={save} disabled={saving}>
+                  {saving ? 'Salvando…' : 'Salvar'}
+                </button>
+              </div>
             </div>
           </div>
         </div>

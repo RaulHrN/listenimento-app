@@ -17,6 +17,7 @@ import { getSupabase } from '@/shared/lib/supabase/client';
 import { TypeTabs } from '@/shared/ui/TypeTabs';
 import { ItemCard } from '@/entities/item/ui/ItemCard';
 import { ItemEditor } from '@/features/edit-item/ui/ItemEditor';
+import { PageTitle } from '@/shared/ui/Marquee';
 
 const PAGE = 60;
 const SORTS: Array<{ value: NonNullable<ItemFilters['sort']>; label: string }> = [
@@ -76,17 +77,20 @@ export function ItemListView() {
   }
 
   return (
-    <div className="flex flex-col gap-5">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Minha lista</h1>
-        <Link href="/buscar" className="btn-primary">
-          + Adicionar
-        </Link>
-      </div>
+    <div className="flex flex-col gap-6">
+      <PageTitle
+        kicker="Programação da casa"
+        title="Minha lista"
+        action={
+          <Link href="/buscar" className="btn-brass">
+            + Adicionar
+          </Link>
+        }
+      />
 
       <TypeTabs value={mediaType} onChange={setMediaType} allowAll />
 
-      <div className="flex flex-col gap-2 sm:flex-row">
+      <div className="flex flex-col gap-3 sm:flex-row">
         <input className="input sm:max-w-xs" placeholder="Filtrar pelo título…" value={search} onChange={(e) => setSearch(e.target.value)} />
         <select className="input sm:w-48" value={status ?? ''} onChange={(e) => setStatus((e.target.value || null) as ItemStatus | null)}>
           <option value="">Todos os status</option>
@@ -105,24 +109,25 @@ export function ItemListView() {
         </select>
       </div>
 
-      {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700 dark:bg-red-950/40 dark:text-red-300">{error}</p>}
+      {error && <p className="alert">{error}</p>}
 
       {!loading && items.length === 0 && !error && (
-        <div className="rounded-2xl border border-dashed border-zinc-300 p-10 text-center dark:border-zinc-700">
-          <p className="text-zinc-500">Nada por aqui ainda.</p>
-          <Link href="/buscar" className="btn-primary mt-4">
+        <div className="panel p-10 text-center">
+          <p className="font-marquee text-4xl text-paper">Sala vazia</p>
+          <p className="mt-2 font-mono text-sm text-muted">Nenhum título em cartaz por aqui ainda.</p>
+          <Link href="/buscar" className="btn-primary mt-6">
             Buscar algo para adicionar
           </Link>
         </div>
       )}
 
-      <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+      <ul className="grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
         {items.map((item) => (
           <ItemCard key={item.id} item={item} onClick={() => setEditing(item)} />
         ))}
       </ul>
 
-      {loading && <p className="text-center text-sm text-zinc-500">Carregando…</p>}
+      {loading && <p className="text-center font-mono text-sm uppercase tracking-widest text-brass">Acendendo as luzes…</p>}
       {hasMore && !loading && (
         <button className="btn-ghost self-center" onClick={() => load(items.length)}>
           Carregar mais

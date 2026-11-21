@@ -9,12 +9,12 @@ interface Props<AllowAll extends boolean> {
 }
 
 export function TypeTabs<AllowAll extends boolean = false>({ value, onChange, allowAll }: Props<AllowAll>) {
-  const base = 'shrink-0 rounded-full border px-3 py-1.5 text-sm transition';
-  const on = 'border-brand-600 bg-brand-600 text-white';
-  const off = 'border-zinc-300 text-zinc-700 hover:border-zinc-400 dark:border-zinc-700 dark:text-zinc-300';
+  const base = 'font-marquee shrink-0 border-[3px] border-ink px-3 py-1.5 text-sm tracking-wider transition';
+  const on = 'curtain text-paper shadow-[4px_4px_0_0_var(--color-brass)] -translate-y-0.5';
+  const off = 'bg-wood-600 text-muted shadow-brut-sm hover:bg-wood-500 hover:text-paper';
 
   return (
-    <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1">
+    <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-3 pt-1">
       {allowAll && (
         <button type="button" className={`${base} ${value === null ? on : off}`} onClick={() => onChange(null as never)}>
           Tudo
