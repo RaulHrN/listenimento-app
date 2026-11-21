@@ -97,14 +97,14 @@ export default function ItemScreen() {
   if (loading) {
     return (
       <Center>
-        <ActivityIndicator color={t.brass} />
+        <ActivityIndicator color={t.gold} />
       </Center>
     );
   }
   if (!item) {
     return (
       <Center>
-        <Text style={[textStyles.mono, { color: t.muted }]}>{error ?? 'Item não encontrado.'}</Text>
+        <Text style={[textStyles.light, { color: t.muted }]}>{error ?? 'Item não encontrado.'}</Text>
       </Center>
     );
   }
@@ -118,26 +118,26 @@ export default function ItemScreen() {
       <Backdrop />
       <ScrollView contentContainerStyle={{ padding: 18, gap: 24, paddingBottom: 40 }} keyboardShouldPersistTaps="handled">
         <View style={{ flexDirection: 'row', gap: 14 }}>
-          <MediaThumb uri={item.image_url} mediaType={item.media_type} width={112} />
+          <MediaThumb uri={item.image_url} mediaType={item.media_type} title={item.title} width={112} />
           <View style={{ flex: 1, gap: 4 }}>
-            <Text style={[textStyles.monoBold, { color: t.brass, fontSize: 11, letterSpacing: 2, textTransform: 'uppercase' }]}>
+            <Text style={[textStyles.caps, { color: t.gold }]}>
               {info.label}
               {item.year ? ` · ${item.year}` : ''}
             </Text>
             <Text
               style={[
                 textStyles.display,
-                { color: t.fg, fontSize: 30, lineHeight: 34 },
+                { color: t.fg, fontSize: 30, lineHeight: 36, marginTop: 4 },
               ]}
             >
               {item.title}
             </Text>
-            {item.subtitle && <Text style={[textStyles.mono, { color: t.muted }]}>{item.subtitle}</Text>}
+            {item.subtitle && <Text style={[textStyles.light, { color: t.muted, fontSize: 14 }]}>{item.subtitle}</Text>}
           </View>
         </View>
 
         {overview && (
-          <Text style={[textStyles.body, { color: t.fg, opacity: 0.8, lineHeight: 21 }]} numberOfLines={8}>
+          <Text style={[textStyles.light, { color: t.fg, opacity: 0.85, lineHeight: 22, fontSize: 15 }]} numberOfLines={8}>
             {overview}
           </Text>
         )}

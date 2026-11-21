@@ -4,7 +4,7 @@ Lista pessoal de tudo que você quer assistir, jogar, ler, ouvir e visitar — n
 
 🎬 Filmes · 📺 Séries · 🎮 Jogos · 📚 Livros · 📍 Lugares · 🍥 Animes · 💿 Álbuns
 
-Visual: cinema de rua antigo — madeira escura, veludo vermelho, latão e papel de ingresso — com temas claro e escuro.
+Visual: modernismo dos teatros de ópera — veludo carmim, folha de ouro, marfim, arcos e lustres em estrela — com temas claro e escuro.
 
 ## Estrutura
 

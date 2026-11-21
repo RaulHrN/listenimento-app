@@ -1,7 +1,9 @@
-import { ScrollView } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { MEDIA_TYPES, MEDIA_TYPE_INFO, type MediaType } from '@listenimento/core';
-import { Chip } from './ui';
+import { useTheme } from '@/theme';
+import { Tab } from './ui';
 
+/** Abas de tipo em versaletes, com filete dourado na ativa. */
 export function TypeChips({
   value,
   onChange,
@@ -11,12 +13,15 @@ export function TypeChips({
   onChange: (v: MediaType | null) => void;
   allowAll?: boolean;
 }) {
+  const t = useTheme();
   return (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 16 }}>
-      {allowAll && <Chip label="Tudo" active={value === null} onPress={() => onChange(null)} />}
-      {MEDIA_TYPES.map((t) => (
-        <Chip key={t} label={`${MEDIA_TYPE_INFO[t].emoji} ${MEDIA_TYPE_INFO[t].plural}`} active={value === t} onPress={() => onChange(t)} />
-      ))}
-    </ScrollView>
+    <View style={{ borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: t.line }}>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 18 }}>
+        {allowAll && <Tab label="Tudo" active={value === null} onPress={() => onChange(null)} />}
+        {MEDIA_TYPES.map((m) => (
+          <Tab key={m} label={MEDIA_TYPE_INFO[m].plural} active={value === m} onPress={() => onChange(m)} />
+        ))}
+      </ScrollView>
+    </View>
   );
 }

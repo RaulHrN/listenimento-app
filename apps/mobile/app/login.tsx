@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { supabase } from '@/lib/supabase';
-import { Backdrop, Button, CurtainStrip, ErrorText, Input } from '@/components/ui';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Backdrop, Button, Chandelier, ErrorText, GoldRule, Input, Label, Logo, VelvetBand } from '@/components/ui';
 import { elevation, fonts, useTheme } from '@/theme';
 
 export default function LoginScreen() {
@@ -32,7 +32,7 @@ export default function LoginScreen() {
           options: { data: { display_name: name.trim() || undefined } },
         });
         if (error) throw error;
-        if (!data.session) setInfo('Ingresso emitido! Confirme pelo e-mail e depois entre.');
+        if (!data.session) setInfo('Conta criada! Confirme pelo e-mail e depois entre.');
       }
       // com sessão, o AuthProvider troca a navegação automaticamente
     } catch (err) {
@@ -43,55 +43,64 @@ export default function LoginScreen() {
     }
   }
 
+  const ARCH = 180;
+
   return (
     <View style={{ flex: 1 }}>
       <Backdrop />
-      <View style={{ paddingTop: insets.top, backgroundColor: t.accentDeep }}>
-        <CurtainStrip height={10} />
-      </View>
+      <View style={{ height: insets.top, backgroundColor: t.accentDeep }} />
+      <VelvetBand height={8} />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
-          <Text
-            style={[
-              styles.title,
-              {
-                color: t.fg,
-                textShadowColor: t.mode === 'dark' ? 'rgba(0,0,0,0.7)' : 'rgba(255,255,255,0.9)',
-              },
-            ]}
-          >
-            Listenimento
-          </Text>
-          <Text style={[styles.kicker, { color: t.brass }]}>Bilheteria</Text>
-
-          {/* ingresso de papel com sombra e recortes */}
-          <View style={[{ marginTop: 28, borderRadius: 6 }, elevation(3, t)]}>
-            <LinearGradient colors={['#fbf4e2', t.ticket, t.ticket]} locations={[0, 0.3, 1]} style={styles.ticket}>
-              <View style={[styles.notch, { left: -12, backgroundColor: t.bg }]} />
-              <View style={[styles.notch, { right: -12, backgroundColor: t.bg }]} />
-              <View style={styles.ticketHead}>
-                <Text style={[styles.ticketHeadText, { color: t.ticketMuted }]}>Admite um</Text>
-                <Text style={[styles.ticketHeadText, { color: t.ticketMuted }]}>Fila A · 01</Text>
+          {/* cartão em arco, como uma janela de camarote */}
+          <View style={[{ borderTopLeftRadius: ARCH, borderTopRightRadius: ARCH, backgroundColor: t.raised }, elevation(3, t)]}>
+            <LinearGradient
+              colors={[t.raised, t.surface]}
+              style={{ borderTopLeftRadius: ARCH, borderTopRightRadius: ARCH, borderWidth: StyleSheet.hairlineWidth, borderColor: t.line }}
+            >
+            <View style={[styles.inner, { borderTopLeftRadius: ARCH, borderTopRightRadius: ARCH, borderColor: t.gold + '66' }]}>
+              <View style={{ alignItems: 'center' }}>
+                <Chandelier size={56} />
+                <View style={{ marginTop: 14 }}>
+                  <Logo size={36} />
+                </View>
+                <Text style={[styles.kicker, { color: t.gold }]}>Bilheteria</Text>
+                <View style={{ marginVertical: 22 }}>
+                  <GoldRule />
+                </View>
               </View>
-              <View style={{ gap: 12 }}>
-                {mode === 'signup' && <Input placeholder="Nome" value={name} onChangeText={setName} />}
-                <Input placeholder="E-mail" autoCapitalize="none" keyboardType="email-address" autoComplete="email" value={email} onChangeText={setEmail} />
-                <Input placeholder="Senha" secureTextEntry value={password} onChangeText={setPassword} />
+
+              <View style={{ gap: 14 }}>
+                {mode === 'signup' && (
+                  <View>
+                    <Label>Nome</Label>
+                    <Input value={name} onChangeText={setName} placeholder="Como quer ser chamado" />
+                  </View>
+                )}
+                <View>
+                  <Label>E-mail</Label>
+                  <Input autoCapitalize="none" keyboardType="email-address" autoComplete="email" value={email} onChangeText={setEmail} />
+                </View>
+                <View>
+                  <Label>Senha</Label>
+                  <Input secureTextEntry value={password} onChangeText={setPassword} />
+                </View>
                 <ErrorText>{error}</ErrorText>
-                {info && <Text style={{ fontFamily: fonts.mono, color: '#2f6420' }}>{info}</Text>}
+                {info && <Text style={{ fontFamily: fonts.body, color: t.status.completed }}>{info}</Text>}
                 <Button
-                  title={mode === 'signin' ? 'Entrar na sessão' : 'Emitir meu ingresso'}
+                  title={mode === 'signin' ? 'Entrar' : 'Criar conta'}
                   onPress={submit}
                   loading={loading}
                   disabled={!email || password.length < 6}
-                  style={{ marginTop: 4 }}
+                  style={{ marginTop: 6 }}
                 />
                 <Pressable onPress={() => setMode(mode === 'signin' ? 'signup' : 'signin')}>
-                  <Text style={[styles.switch, { color: t.ticketMuted }]}>
-                    {mode === 'signin' ? 'Primeira vez? Crie sua conta' : 'Já tem ingresso? Entrar'}
+                  <Text style={[styles.switch, { color: t.muted }]}>
+                    {mode === 'signin' ? 'Primeira vez? Crie sua conta' : 'Já tem conta? Entrar'}
                   </Text>
                 </Pressable>
               </View>
+            </View>
             </LinearGradient>
           </View>
         </ScrollView>
@@ -102,26 +111,7 @@ export default function LoginScreen() {
 
 const styles = StyleSheet.create({
   container: { flexGrow: 1, justifyContent: 'center', padding: 24 },
-  title: {
-    fontFamily: fonts.display,
-    fontSize: 46,
-    textAlign: 'center',
-    textTransform: 'uppercase',
-    textShadowOffset: { width: 0, height: 2 },
-    textShadowRadius: 6,
-  },
-  kicker: { fontFamily: fonts.monoBold, fontSize: 11, letterSpacing: 4, textAlign: 'center', textTransform: 'uppercase', marginTop: 4 },
-  ticket: { borderRadius: 6, paddingHorizontal: 24, paddingTop: 18, paddingBottom: 22 },
-  notch: { position: 'absolute', top: '50%', width: 24, height: 24, marginTop: -12, borderRadius: 12 },
-  ticketHead: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderBottomWidth: 1,
-    borderStyle: 'dashed',
-    borderColor: 'rgba(35,21,13,0.25)',
-    paddingBottom: 10,
-    marginBottom: 18,
-  },
-  ticketHeadText: { fontFamily: fonts.monoBold, fontSize: 10, letterSpacing: 2, textTransform: 'uppercase' },
-  switch: { textAlign: 'center', marginTop: 8, fontFamily: fonts.mono, textDecorationLine: 'underline' },
+  inner: { margin: 6, borderWidth: StyleSheet.hairlineWidth, paddingHorizontal: 22, paddingTop: 44, paddingBottom: 26 },
+  kicker: { fontFamily: fonts.medium, fontSize: 10, letterSpacing: 3.6, textAlign: 'center', textTransform: 'uppercase', marginTop: 10 },
+  switch: { textAlign: 'center', marginTop: 10, fontFamily: fonts.light, fontSize: 14 },
 });

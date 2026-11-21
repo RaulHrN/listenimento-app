@@ -88,9 +88,9 @@ export default function BuscarScreen() {
   return (
     <View style={{ flex: 1 }}>
       <Backdrop />
-      <View style={{ gap: 12, paddingTop: 14 }}>
+      <View style={{ gap: 14, paddingTop: 20 }}>
         <View style={{ paddingHorizontal: 16 }}>
-          <ScreenTitle kicker="Bilheteria · escolha a sessão" title="Buscar" />
+          <ScreenTitle kicker="Ato II · Repertório" title="Buscar" />
         </View>
         <TypeChips value={type} onChange={(v) => v && setType(v)} />
         <View style={{ paddingHorizontal: 16 }}>
@@ -132,9 +132,7 @@ export default function BuscarScreen() {
                   <ActivityIndicator color={t.accentHi} />
                 ) : savedId ? (
                   <Pressable hitSlop={8} onPress={() => router.push({ pathname: '/item/[id]', params: { id: savedId } })}>
-                    <View style={{ borderWidth: 1, borderColor: t.status.completed + '55', backgroundColor: t.status.completed + '1f', borderRadius: 3, paddingHorizontal: 6, paddingVertical: 3 }}>
-                      <Text style={[textStyles.monoBold, { color: t.status.completed, fontSize: 10 }]}>✓ NA LISTA</Text>
-                    </View>
+                    <Text style={[textStyles.caps, { color: t.status.completed }]}>✓ Na lista</Text>
                   </Pressable>
                 ) : (
                   <Pressable hitSlop={8} onPress={() => askStatus(r)}>
@@ -144,7 +142,7 @@ export default function BuscarScreen() {
                           colors={[t.accentHi, t.accent, t.accentDeep]}
                           style={{ width: 38, height: 38, borderRadius: 19, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: 'rgba(0,0,0,0.25)', borderTopColor: 'rgba(255,255,255,0.25)' }}
                         >
-                          <Text style={{ color: t.accentFg, fontSize: 22, lineHeight: 24, fontWeight: '300' }}>+</Text>
+                          <Text style={[textStyles.light, { color: t.accentFg, fontSize: 24, lineHeight: 26 }]}>+</Text>
                         </LinearGradient>
                       </View>
                     )}
@@ -154,12 +152,12 @@ export default function BuscarScreen() {
             />
           );
         }}
-        ListFooterComponent={loading ? <ActivityIndicator color={t.brass} style={{ marginVertical: 16 }} /> : undefined}
+        ListFooterComponent={loading ? <ActivityIndicator color={t.gold} style={{ marginVertical: 16 }} /> : undefined}
         ListEmptyComponent={
           loading ? undefined : (
             <Center>
-              <Text style={[textStyles.mono, { color: t.muted, textAlign: 'center' }]}>
-                {submitted ? `Nenhuma sessão encontrada para “${submitted}”.` : `Busque ${MEDIA_TYPE_INFO[type].plural.toLowerCase()} para adicionar à sua lista.`}
+              <Text style={[textStyles.light, { color: t.muted, textAlign: 'center', fontSize: 15 }]}>
+                {submitted ? `Nada no repertório para “${submitted}”.` : `Busque ${MEDIA_TYPE_INFO[type].plural.toLowerCase()} para adicionar à sua lista.`}
               </Text>
             </Center>
           )

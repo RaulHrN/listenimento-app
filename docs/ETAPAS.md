@@ -19,15 +19,19 @@ Cada etapa é um commit no histórico do repositório (`git log --oneline`).
 | 13 | `feat(mobile): identidade visual cinema brutalista` | Mesmo design no app Expo |
 | 14 | `feat(web): temas claro e escuro com sombreamento realista` | Light/dark, sombras em camadas, visual mais enxuto no site |
 | 15 | `feat(mobile): temas claro e escuro com sombreamento realista` | Light/dark com preferência salva e gradientes no app |
+| 16 | `feat(web): redesign modernista inspirado nos teatros de ópera` | Nova identidade no site (sai o brutalismo) |
+| 17 | `feat(mobile): redesign modernista inspirado nos teatros de ópera` | Mesma identidade no app |
 
 ## Identidade visual
 
-Cinema de rua antigo, com profundidade e visual enxuto. Tema **claro** (sala com as luzes acesas) e **escuro** (sessão começando); segue o sistema até a pessoa escolher.
+**Modernismo dos teatros de ópera** (anos 60): geometria limpa, arcos de proscênio, lustre em estrela, veludo carmim, folha de ouro e marfim. Profundidade por luz e sombra, sem excesso de ornamento.
 
+- Temas: **claro** (foyer de dia) e **escuro** (noite de estreia); segue o sistema até a pessoa escolher.
 - Paletas em `packages/core/src/theme.ts` (`PALETTES.light` / `PALETTES.dark`); o site espelha os valores em variáveis CSS (`globals.css`).
-- Profundidade por luz: veludo com dobras iluminadas, madeira envernizada no cabeçalho, sombras em camadas, campos "afundados", botões em relevo, cartazes com vinheta.
-- Fontes: **Anton** (letreiro), **Archivo** (texto) e **Courier Prime** (ingresso/etiquetas).
-- Onde trocar o tema: botão ☀︎/☾ no cabeçalho do site; Placar → Tema no app.
+- Tipografia: **Bodoni Moda** (títulos, didone de alto contraste) + **Jost** (interface, geométrica modernista).
+- Motivos: lustre em estrela (logo e painel do Programa), arco de proscênio (landing, login, capas largas), filete duplo de ouro, faixa de veludo.
+- Seções como atos: **Ato I · Temporada** (Minha lista), **Ato II · Repertório** (Buscar), **Ato III · Programa** (estatísticas).
+- Onde trocar o tema: botão de meia-lua no cabeçalho do site; Programa → Tema no app.
 
 ## Modelo de dados
 

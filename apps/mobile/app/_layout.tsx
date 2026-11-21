@@ -3,9 +3,8 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useFonts } from 'expo-font';
-import { Anton_400Regular } from '@expo-google-fonts/anton';
-import { Archivo_400Regular, Archivo_800ExtraBold } from '@expo-google-fonts/archivo';
-import { CourierPrime_400Regular, CourierPrime_700Bold } from '@expo-google-fonts/courier-prime';
+import { BodoniModa_400Regular, BodoniModa_400Regular_Italic } from '@expo-google-fonts/bodoni-moda';
+import { Jost_300Light, Jost_400Regular, Jost_500Medium } from '@expo-google-fonts/jost';
 import { AuthProvider, useAuth } from '@/providers/AuthProvider';
 import { ThemeProvider, fonts, useTheme } from '@/theme';
 
@@ -16,7 +15,7 @@ function RootNavigator() {
   if (loading) {
     return (
       <View style={{ flex: 1, backgroundColor: t.bg, alignItems: 'center', justifyContent: 'center' }}>
-        <ActivityIndicator color={t.brass} />
+        <ActivityIndicator color={t.gold} />
       </View>
     );
   }
@@ -29,8 +28,8 @@ function RootNavigator() {
           headerShown: false,
           contentStyle: { backgroundColor: t.bg },
           headerStyle: { backgroundColor: t.surface },
-          headerTintColor: t.fg,
           headerTitleStyle: { fontFamily: fonts.display, fontSize: 20 },
+          headerTintColor: t.gold,
           headerShadowVisible: false,
         }}
       >
@@ -48,11 +47,11 @@ function RootNavigator() {
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
-    Anton_400Regular,
-    Archivo_400Regular,
-    Archivo_800ExtraBold,
-    CourierPrime_400Regular,
-    CourierPrime_700Bold,
+    BodoniModa_400Regular,
+    BodoniModa_400Regular_Italic,
+    Jost_300Light,
+    Jost_400Regular,
+    Jost_500Medium,
   });
 
   return (

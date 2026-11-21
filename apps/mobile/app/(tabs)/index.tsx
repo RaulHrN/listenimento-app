@@ -40,9 +40,9 @@ export default function ListaScreen() {
   return (
     <View style={{ flex: 1 }}>
       <Backdrop />
-      <View style={{ gap: 12, paddingTop: 14 }}>
+      <View style={{ gap: 14, paddingTop: 20 }}>
         <View style={{ paddingHorizontal: 16 }}>
-          <ScreenTitle kicker="Programação da casa" title="Minha lista" />
+          <ScreenTitle kicker="Ato I · Temporada" title="Minha lista" />
         </View>
         <View style={{ paddingHorizontal: 16 }}>
           <Input placeholder="Filtrar pelo título…" value={search} onChangeText={setSearch} />
@@ -65,7 +65,7 @@ export default function ListaScreen() {
         data={items}
         keyExtractor={(i) => i.id}
         contentContainerStyle={{ padding: 16, gap: 14, flexGrow: 1 }}
-        refreshControl={<RefreshControl refreshing={loading} onRefresh={load} tintColor={t.brass} colors={[t.accent]} />}
+        refreshControl={<RefreshControl refreshing={loading} onRefresh={load} tintColor={t.gold} colors={[t.accent]} />}
         renderItem={({ item }) => (
           <MediaRow
             title={item.title}
@@ -78,7 +78,13 @@ export default function ListaScreen() {
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                 <StatusPill status={item.status} mediaType={item.media_type} />
                 {item.rating ? <Stars value={item.rating} size={12} /> : null}
-                {item.priority > 0 ? <Text style={[textStyles.display, { color: t.accentHi, fontSize: 15 }]}>{'!'.repeat(item.priority)}</Text> : null}
+                {item.priority > 0 ? (
+                  <View style={{ flexDirection: 'row', gap: 2 }}>
+                    {Array.from({ length: item.priority }, (_, i) => (
+                      <View key={i} style={{ width: 4, height: 4, borderRadius: 2, backgroundColor: t.goldHi }} />
+                    ))}
+                  </View>
+                ) : null}
               </View>
             }
           />
@@ -86,11 +92,11 @@ export default function ListaScreen() {
         ListEmptyComponent={
           loading ? undefined : (
             <Center>
-              <Text style={[textStyles.display, { color: t.fg, fontSize: 34 }]}>Sala vazia</Text>
-              <Text style={[textStyles.mono, { color: t.muted, marginTop: 6, marginBottom: 20, textAlign: 'center' }]}>
-                Nenhum título em cartaz por aqui ainda.
+              <Text style={[textStyles.displayItalic, { color: t.fg, fontSize: 34 }]}>Palco vazio</Text>
+              <Text style={[textStyles.light, { color: t.muted, marginTop: 8, marginBottom: 24, textAlign: 'center', fontSize: 15 }]}>
+                Nenhum título na sua temporada ainda.
               </Text>
-              <Button title="Buscar algo" onPress={() => router.navigate('/buscar')} />
+              <Button title="Montar repertório" onPress={() => router.navigate('/buscar')} />
             </Center>
           )
         }

@@ -55,11 +55,13 @@ export function useTheme(): Theme {
 
 /** Nomes registrados pelo useFonts em app/_layout.tsx */
 export const fonts = {
-  display: 'Anton_400Regular',
-  body: 'Archivo_400Regular',
-  bodyBold: 'Archivo_800ExtraBold',
-  mono: 'CourierPrime_400Regular',
-  monoBold: 'CourierPrime_700Bold',
+  /** títulos: didone de alto contraste (Bodoni Moda) */
+  display: 'BodoniModa_400Regular',
+  displayItalic: 'BodoniModa_400Regular_Italic',
+  /** interface: geométrica modernista (Jost) */
+  light: 'Jost_300Light',
+  body: 'Jost_400Regular',
+  medium: 'Jost_500Medium',
 } as const;
 
 /**
