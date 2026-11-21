@@ -1,5 +1,5 @@
 import type { ItemStatus, MediaType } from './types';
-import { CINEMA } from './theme';
+import { PALETTES, type ColorMode } from './theme';
 
 interface MediaTypeInfo {
   label: string;
@@ -25,12 +25,12 @@ export const MEDIA_TYPE_INFO: Record<MediaType, MediaTypeInfo> = {
   album:  { label: 'Álbum', plural: 'Álbuns', emoji: '💿', verb: 'ouvir', gerund: 'Ouvindo', done: 'Ouvido', placeholder: 'Ex.: Clube da Esquina', color: '#9a6fc4' },
 };
 
-export const STATUS_COLORS: Record<ItemStatus, string> = {
-  wishlist: CINEMA.brass,
-  in_progress: CINEMA.neon,
-  completed: CINEMA.exit,
-  dropped: '#8a7868',
-};
+/** Cores de status do tema escuro (padrão). Use statusColor() para o tema atual. */
+export const STATUS_COLORS: Record<ItemStatus, string> = PALETTES.dark.status;
+
+export function statusColor(status: ItemStatus, mode: ColorMode = 'dark'): string {
+  return PALETTES[mode].status[status];
+}
 
 const GENERIC_STATUS: Record<ItemStatus, string> = {
   wishlist: 'Quero',

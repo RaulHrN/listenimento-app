@@ -59,16 +59,16 @@ export function LoginForm() {
   return (
     <form onSubmit={onSubmit} className="flex w-full flex-col gap-4">
       {mode === 'signup' && (
-        <label className="flex flex-col gap-1 font-mono text-xs font-bold uppercase tracking-widest">
+        <label className="flex flex-col gap-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-ticket-muted">
           Nome
           <input className="input" value={name} onChange={(e) => setName(e.target.value)} placeholder="Como quer ser chamado" />
         </label>
       )}
-      <label className="flex flex-col gap-1 font-mono text-xs font-bold uppercase tracking-widest">
+      <label className="flex flex-col gap-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-ticket-muted">
         E-mail
         <input className="input" type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} />
       </label>
-      <label className="flex flex-col gap-1 font-mono text-xs font-bold uppercase tracking-widest">
+      <label className="flex flex-col gap-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-ticket-muted">
         Senha
         <input
           className="input"
@@ -82,15 +82,15 @@ export function LoginForm() {
       </label>
 
       {error && <p className="alert">{error}</p>}
-      {info && <p className="border-[3px] border-ink bg-brass px-3 py-2 font-mono text-sm text-ink">{info}</p>}
+      {info && <p className="rounded bg-[#3f7d2a]/12 px-3 py-2 font-mono text-sm text-[#2f6420] shadow-[inset_0_0_0_1px_rgba(63,125,42,0.3)]">{info}</p>}
 
-      <button className="btn-primary mt-2 py-3 text-lg" disabled={loading}>
+      <button className="btn-primary mt-2 py-3 text-base" disabled={loading}>
         {loading ? 'Imprimindo…' : mode === 'signin' ? 'Entrar na sessão' : 'Emitir meu ingresso'}
       </button>
 
       <button
         type="button"
-        className="font-mono text-sm text-ink/70 underline decoration-2 underline-offset-4 hover:text-curtain"
+        className="font-mono text-sm text-ticket-muted underline decoration-1 underline-offset-4 transition hover:text-[#9b111a]"
         onClick={() => {
           setMode(mode === 'signin' ? 'signup' : 'signin');
           setError(null);

@@ -1,64 +1,146 @@
 @import 'tailwindcss';
 
 /* =====================================================================
-   Listenimento — brutalismo + cinema de rua antigo
-   madeira escura · vermelho de cortina · latão · papel de ingresso
+   Listenimento — cinema de rua antigo, com profundidade
+   Tema claro: sala com as luzes acesas · Tema escuro: sessão começando
+   Valores espelham PALETTES em packages/core/src/theme.ts
    ===================================================================== */
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+  --bg: #efe7da;
+  --bg-spot: #fbf6ee;
+  --surface: #f8f2e8;
+  --raised: #fffdf9;
+  --fg: #23150d;
+  --muted: #7b6553;
+  --line: rgba(35, 21, 13, 0.1);
+  --accent-deep: #5c070c;
+  --accent: #9b111a;
+  --accent-hi: #c8202a;
+  --accent-fg: #fff7ea;
+  --brass: #9a6d22;
+  --brass-hi: #d6a54a;
+  --ticket: #f6ecd4;
+  --ticket-fg: #23150d;
+  --ticket-muted: #7b6553;
+  --field: #fffdf9;
+  --field-line: rgba(35, 21, 13, 0.16);
+  --wood: #3a2416;
+  --wood-hi: #6b442b;
+  --wood-fg: #f6ead2;
+
+  --st-wishlist: #a87720;
+  --st-in_progress: #c8202a;
+  --st-completed: #3f7d2a;
+  --st-dropped: #8a7868;
+
+  /* luz de cima: brilho na borda superior, sombra que cai embaixo */
+  --hi: rgba(255, 255, 255, 0.75);
+  --sh-1: 0 1px 1px rgba(58, 34, 18, 0.08), 0 2px 6px rgba(58, 34, 18, 0.08);
+  --sh-2: 0 1px 2px rgba(58, 34, 18, 0.1), 0 6px 14px rgba(58, 34, 18, 0.1), 0 20px 40px -14px rgba(58, 34, 18, 0.22);
+  --sh-3: 0 2px 6px rgba(58, 34, 18, 0.12), 0 30px 80px -20px rgba(40, 20, 10, 0.45);
+  --sh-inset: inset 0 2px 4px rgba(58, 34, 18, 0.08);
+  --drop: drop-shadow(0 1px 1px rgba(58, 34, 18, 0.12)) drop-shadow(0 10px 18px rgba(58, 34, 18, 0.16));
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #120b07;
+  --bg-spot: #2a1a10;
+  --surface: #1d120c;
+  --raised: #271810;
+  --fg: #f1e4c3;
+  --muted: #a8927a;
+  --line: rgba(241, 228, 195, 0.09);
+  --accent-deep: #4e060b;
+  --accent: #96101a;
+  --accent-hi: #c81d26;
+  --accent-fg: #fbf1de;
+  --brass: #d6a54a;
+  --brass-hi: #ffd98a;
+  --ticket: #ecdfbf;
+  --ticket-fg: #1b110b;
+  --ticket-muted: #6b5543;
+  --field: #0d0805;
+  --field-line: rgba(214, 165, 74, 0.28);
+  --wood: #2b190f;
+  --wood-hi: #4a2d1c;
+  --wood-fg: #f1e4c3;
+
+  --st-wishlist: #d6a54a;
+  --st-in_progress: #ff5a48;
+  --st-completed: #93c46e;
+  --st-dropped: #8a7868;
+
+  --hi: rgba(255, 230, 190, 0.07);
+  --sh-1: 0 1px 1px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.35);
+  --sh-2: 0 1px 2px rgba(0, 0, 0, 0.5), 0 8px 18px rgba(0, 0, 0, 0.45), 0 24px 48px -16px rgba(0, 0, 0, 0.7);
+  --sh-3: 0 2px 8px rgba(0, 0, 0, 0.5), 0 40px 90px -20px rgba(0, 0, 0, 0.9);
+  --sh-inset: inset 0 2px 5px rgba(0, 0, 0, 0.6);
+  --drop: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5)) drop-shadow(0 12px 22px rgba(0, 0, 0, 0.55));
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent-deep: var(--accent-deep);
+  --color-accent: var(--accent);
+  --color-accent-hi: var(--accent-hi);
+  --color-accent-fg: var(--accent-fg);
+  --color-brass: var(--brass);
+  --color-brass-hi: var(--brass-hi);
+  --color-ticket: var(--ticket);
+  --color-ticket-fg: var(--ticket-fg);
+  --color-ticket-muted: var(--ticket-muted);
+  --color-field: var(--field);
+  --color-field-line: var(--field-line);
+  --color-wood: var(--wood);
+  --color-wood-hi: var(--wood-hi);
+  --color-wood-fg: var(--wood-fg);
+
+  --shadow-1: var(--sh-1);
+  --shadow-2: var(--sh-2);
+  --shadow-3: var(--sh-3);
+}
 
 @theme {
   --font-display: 'Anton', Impact, 'Arial Narrow', sans-serif;
   --font-sans: 'Archivo', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'Courier Prime', 'Courier New', ui-monospace, monospace;
-
-  --color-ink: #0c0806;
-  --color-wood-900: #170d08;
-  --color-wood-800: #21130c;
-  --color-wood-700: #2d1a10;
-  --color-wood-600: #3c2416;
-  --color-wood-500: #5a3622;
-  --color-curtain-dark: #5c070c;
-  --color-curtain: #8e0e15;
-  --color-curtain-bright: #b5121b;
-  --color-brass-dark: #9c7430;
-  --color-brass: #d6a54a;
-  --color-bulb: #ffd98a;
-  --color-paper: #f1e4c3;
-  --color-paper-dark: #d9c59a;
-  --color-muted: #b8a283;
-  --color-neon: #ff4d3d;
-
-  --shadow-brut: 6px 6px 0 0 #0c0806;
-  --shadow-brut-sm: 4px 4px 0 0 #0c0806;
-  --shadow-brut-red: 6px 6px 0 0 #5c070c;
-
-  --animate-bulbs: bulbs 1.6s steps(2, jump-none) infinite;
+  --animate-flicker: flicker 4s ease-in-out infinite;
 }
 
-@keyframes bulbs {
-  0% { opacity: 1; }
-  100% { opacity: 0.55; }
-}
-
-:root {
-  color-scheme: dark;
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  48% { opacity: 0.92; }
+  50% { opacity: 0.75; }
+  52% { opacity: 0.95; }
 }
 
 body {
   font-family: var(--font-sans);
-  color: var(--color-paper);
-  background-color: var(--color-wood-900);
-  /* tábuas de madeira: veios finos + juntas entre tábuas */
-  background-image:
-    repeating-linear-gradient(0deg, transparent 0 158px, rgba(0, 0, 0, 0.6) 158px 161px, rgba(255, 220, 170, 0.04) 161px 162px),
-    repeating-linear-gradient(0deg, rgba(255, 210, 160, 0.025) 0 1px, transparent 1px 7px),
-    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.12) 0 3px, transparent 3px 23px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.35), transparent 18%, transparent 82%, rgba(0, 0, 0, 0.35));
+  color: var(--fg);
+  /* foco de luz vindo do projetor, caindo para as bordas */
+  background:
+    radial-gradient(120% 70% at 50% -15%, var(--bg-spot), transparent 60%),
+    radial-gradient(80% 60% at 50% 120%, rgba(0, 0, 0, 0.08), transparent 70%),
+    var(--bg);
+  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.25s, color 0.25s;
 }
 
 ::selection {
-  background: var(--color-curtain-bright);
-  color: var(--color-paper);
+  background: var(--accent-hi);
+  color: var(--accent-fg);
 }
 
 /* ---------- tipografia ---------- */
@@ -71,123 +153,139 @@ body {
 
 @utility kicker {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--color-brass);
+  color: var(--brass);
 }
 
 /* ---------- superfícies ---------- */
+
+/* cartão elevado: luz de cima (brilho na borda) e sombra em camadas */
+@utility card {
+  background: linear-gradient(180deg, var(--raised), var(--surface));
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  box-shadow: inset 0 1px 0 var(--hi), var(--sh-2);
+}
+
+/* madeira envernizada: gradiente de luz + veio fino */
 @utility wood {
-  background-color: var(--color-wood-700);
-  background-image:
-    repeating-linear-gradient(90deg, rgba(255, 210, 160, 0.035) 0 1px, transparent 1px 6px),
-    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.18) 0 2px, transparent 2px 19px),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.25));
+  color: var(--wood-fg);
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 220, 170, 0.025) 0 1px, transparent 1px 6px),
+    linear-gradient(180deg, var(--wood-hi) 0%, var(--wood) 55%, color-mix(in srgb, var(--wood) 75%, black) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 230, 190, 0.12),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.45);
 }
 
-@utility panel {
-  @apply wood border-[3px] border-ink shadow-brut;
-  outline: 2px solid var(--color-brass-dark);
-  outline-offset: -8px;
-}
-
-@utility curtain {
-  background-color: var(--color-curtain);
-  background-image:
+/* veludo: dobras com luz e sombra + queda de luz vertical */
+@utility velvet {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 35%, rgba(0, 0, 0, 0.4)),
     repeating-linear-gradient(
       90deg,
-      var(--color-curtain-dark) 0,
-      var(--color-curtain) 14px,
-      var(--color-curtain-bright) 24px,
-      var(--color-curtain) 34px,
-      var(--color-curtain-dark) 48px
-    ),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.35), transparent 30%, transparent 75%, rgba(0, 0, 0, 0.5));
-  background-blend-mode: multiply;
+      var(--accent-deep) 0px,
+      var(--accent) 14px,
+      var(--accent-hi) 24px,
+      var(--accent) 34px,
+      var(--accent-deep) 50px
+    );
 }
 
-/* sanefa da cortina com franja de latão */
-@utility valance {
+/* faixa de cortina que projeta sombra sobre a página */
+@utility curtain-strip {
+  @apply velvet;
+  height: 10px;
+  box-shadow: 0 6px 14px -4px rgba(0, 0, 0, 0.45);
+}
+
+/* letreiro iluminado: sempre escuro, com brilho quente */
+@utility marquee {
   position: relative;
-  height: 18px;
-  background-image: radial-gradient(circle at 50% 0, var(--color-curtain) 0 13px, var(--color-brass) 13px 15px, transparent 15.5px);
-  background-size: 30px 18px;
-  background-repeat: repeat-x;
-  filter: drop-shadow(0 4px 0 rgba(0, 0, 0, 0.55));
+  background: radial-gradient(120% 140% at 50% 0%, #2a1a10, #0d0805 70%);
+  color: #f1e4c3;
+  border-radius: 6px;
+  box-shadow:
+    inset 0 0 0 1px rgba(214, 165, 74, 0.35),
+    inset 0 1px 0 rgba(255, 230, 190, 0.1),
+    0 0 50px rgba(255, 190, 100, 0.12),
+    var(--sh-3);
 }
 
-/* fileira de lâmpadas do letreiro */
 @utility bulbs {
-  height: 14px;
-  background-image: radial-gradient(circle, var(--color-bulb) 0 3px, var(--color-brass-dark) 3.5px 5px, transparent 5.5px);
-  background-size: 20px 14px;
+  height: 12px;
+  background-image: radial-gradient(circle, #fff2c8 0 2px, #ffd98a 2.5px 3.5px, rgba(255, 200, 110, 0.35) 4px 6px, transparent 6.5px);
+  background-size: 22px 12px;
   background-repeat: repeat-x;
   background-position: center;
-  filter: drop-shadow(0 0 4px rgba(255, 200, 110, 0.7));
 }
 
-/* ingresso de papel com recortes laterais */
+/* ingresso: recortes laterais; a sombra vem do wrapper (.ticket-shadow) */
 @utility ticket {
-  background-color: var(--color-paper);
-  color: var(--color-ink);
-  background-image: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.025) 0 1px, transparent 1px 4px);
+  color: var(--ticket-fg);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--ticket) 70%, white), var(--ticket) 40%);
+  border-radius: 4px;
   -webkit-mask:
-    radial-gradient(circle 12px at 0 50%, transparent 97%, #000) left / 51% 100% no-repeat,
-    radial-gradient(circle 12px at 100% 50%, transparent 97%, #000) right / 51% 100% no-repeat;
+    radial-gradient(circle 11px at 0 50%, transparent 97%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle 11px at 100% 50%, transparent 97%, #000) right / 51% 100% no-repeat;
   mask:
-    radial-gradient(circle 12px at 0 50%, transparent 97%, #000) left / 51% 100% no-repeat,
-    radial-gradient(circle 12px at 100% 50%, transparent 97%, #000) right / 51% 100% no-repeat;
+    radial-gradient(circle 11px at 0 50%, transparent 97%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle 11px at 100% 50%, transparent 97%, #000) right / 51% 100% no-repeat;
 }
 
-/* moldura de cartaz */
-@utility poster-frame {
-  background: var(--color-ink);
-  border: 3px solid var(--color-ink);
-  outline: 2px solid var(--color-brass-dark);
-  outline-offset: -6px;
-  box-shadow: var(--shadow-brut);
+@utility ticket-shadow {
+  filter: var(--drop);
 }
 
-/* carimbo de status */
-@utility stamp {
+/* cartaz: borda fina, sombra em camadas e vinheta interna */
+@utility poster {
+  position: relative;
+  overflow: hidden;
+  border-radius: 3px;
+  background: #0d0805;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25), var(--sh-2);
+}
+
+/* etiqueta de status: discreta, na cor do status */
+@utility tag {
   display: inline-flex;
   align-items: center;
-  border: 2px solid currentColor;
-  padding: 1px 6px;
+  gap: 0.35rem;
+  border-radius: 3px;
+  padding: 2px 7px;
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  transform: rotate(-2deg);
-  background: rgba(12, 8, 6, 0.85);
+  background: color-mix(in srgb, currentColor 13%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, currentColor 30%, transparent);
 }
 
 /* ---------- controles ---------- */
 @utility input {
   width: 100%;
-  border: 3px solid var(--color-ink);
-  background: var(--color-ink);
-  color: var(--color-paper);
-  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--field-line);
+  border-radius: 4px;
+  background: var(--field);
+  color: var(--fg);
+  padding: 0.65rem 0.85rem;
   font-family: var(--font-mono);
   font-size: 0.95rem;
-  outline: 2px solid var(--color-brass-dark);
-  outline-offset: -5px;
-  border-radius: 0;
-  transition: box-shadow 0.1s, outline-color 0.1s;
+  outline: none;
+  /* campo afundado */
+  box-shadow: var(--sh-inset);
+  transition: border-color 0.15s, box-shadow 0.15s;
 
   &::placeholder {
-    color: #7d6a55;
+    color: color-mix(in srgb, var(--muted) 75%, transparent);
   }
   &:focus {
-    outline-color: var(--color-brass);
-    box-shadow: 4px 4px 0 0 var(--color-curtain-bright);
-  }
-  & option {
-    background: var(--color-ink);
+    border-color: var(--brass);
+    box-shadow: var(--sh-inset), 0 0 0 3px color-mix(in srgb, var(--brass) 22%, transparent);
   }
 }
 
@@ -196,70 +294,109 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border: 3px solid var(--color-ink);
-  padding: 0.55rem 1.1rem;
+  border-radius: 4px;
+  padding: 0.6rem 1.15rem;
   font-family: var(--font-display);
   font-size: 1rem;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   line-height: 1.2;
-  box-shadow: var(--shadow-brut-sm);
-  transition: transform 0.08s, box-shadow 0.08s, background-color 0.12s;
+  border: 1px solid rgba(0, 0, 0, 0.28);
+  /* relevo: brilho em cima, sombra embaixo, sombra projetada */
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.22),
+    var(--sh-1);
+  transition: transform 0.12s, box-shadow 0.12s, filter 0.12s;
   cursor: pointer;
 
   &:hover {
-    transform: translate(-1px, -1px);
-    box-shadow: 5px 5px 0 0 var(--color-ink);
+    transform: translateY(-1px);
+    filter: brightness(1.06);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.22),
+      inset 0 -2px 0 rgba(0, 0, 0, 0.22),
+      var(--sh-2);
   }
   &:active {
-    transform: translate(4px, 4px);
-    box-shadow: none;
+    transform: translateY(1px);
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.35);
   }
   &:disabled {
     cursor: not-allowed;
     opacity: 0.5;
     transform: none;
-    box-shadow: var(--shadow-brut-sm);
+    filter: none;
   }
 }
 
 @utility btn-primary {
-  @apply btn curtain;
-  color: var(--color-paper);
-  text-shadow: 2px 2px 0 var(--color-ink);
+  @apply btn;
+  color: var(--accent-fg);
+  background: linear-gradient(180deg, var(--accent-hi), var(--accent) 50%, var(--accent-deep));
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
 }
 
 @utility btn-brass {
   @apply btn;
-  background: var(--color-brass);
-  color: var(--color-ink);
-  &:hover {
-    background: var(--color-bulb);
-  }
+  color: #1b110b;
+  background: linear-gradient(180deg, #f3cf7f, #d6a54a 50%, #9a6d22);
 }
 
 @utility btn-ghost {
   @apply btn;
-  background: var(--color-wood-600);
-  color: var(--color-paper);
-  &:hover {
-    background: var(--color-wood-500);
-  }
+  color: var(--fg);
+  border-color: var(--line);
+  background: linear-gradient(180deg, var(--raised), var(--surface));
+  box-shadow: inset 0 1px 0 var(--hi), var(--sh-1);
 }
 
 @utility btn-danger {
   @apply btn;
-  background: var(--color-ink);
-  color: var(--color-neon);
-  border-color: var(--color-ink);
+  color: var(--accent-hi);
+  border-color: color-mix(in srgb, var(--accent-hi) 35%, transparent);
+  background: transparent;
+  box-shadow: none;
+}
+
+/* pílula de seleção (abas, status) */
+@utility pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, var(--raised), var(--surface));
+  box-shadow: inset 0 1px 0 var(--hi), var(--sh-1);
+  transition: color 0.15s, transform 0.12s;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--fg);
+  }
+}
+
+@utility pill-on {
+  color: var(--accent-fg);
+  border-color: rgba(0, 0, 0, 0.3);
+  background: linear-gradient(180deg, var(--accent-hi), var(--accent) 55%, var(--accent-deep));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), var(--sh-1);
+  &:hover {
+    color: var(--accent-fg);
+  }
 }
 
 @utility alert {
-  border: 3px solid var(--color-ink);
-  background: var(--color-curtain-dark);
-  color: var(--color-paper);
-  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  padding: 0.55rem 0.8rem;
   font-family: var(--font-mono);
   font-size: 0.85rem;
-  box-shadow: var(--shadow-brut-sm);
+  color: var(--accent-hi);
+  background: color-mix(in srgb, var(--accent-hi) 10%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent-hi) 30%, transparent);
 }

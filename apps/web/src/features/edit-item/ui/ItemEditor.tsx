@@ -84,43 +84,39 @@ export function ItemEditor({ item, onClose, onSaved, onRemoved }: Props) {
 
   const overview = typeof item.metadata.overview === 'string' ? item.metadata.overview : null;
 
-  const label = 'flex flex-col gap-1.5 font-mono text-xs font-bold uppercase tracking-widest text-brass';
+  const label = 'flex flex-col gap-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-muted';
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-ink/85 p-0 sm:items-center sm:p-4" onClick={onClose}>
+    <div
+      className="fixed inset-0 z-50 flex items-end justify-center bg-[radial-gradient(circle_at_50%_30%,rgba(0,0,0,0.45),rgba(0,0,0,0.8))] p-0 backdrop-blur-[2px] sm:items-center sm:p-4"
+      onClick={onClose}
+    >
       <div
         role="dialog"
         aria-modal="true"
         aria-label={item.title}
-        className="panel max-h-[92dvh] w-full max-w-2xl overflow-y-auto [outline-offset:-10px]"
+        className="card max-h-[92dvh] w-full max-w-2xl overflow-y-auto !shadow-3"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="bulbs animate-bulbs border-b-[3px] border-ink bg-ink py-1" />
-        <div className="p-6">
+        <div className="curtain-strip !h-2 rounded-t-[6px]" />
+        <div className="p-6 sm:p-7">
           <div className="flex gap-5">
             <MediaCover src={item.image_url} alt={item.title} mediaType={item.media_type} className="w-28 shrink-0 sm:w-36" />
             <div className="min-w-0 flex-1">
               <p className="kicker">
-                {MEDIA_TYPE_INFO[item.media_type].emoji} {MEDIA_TYPE_INFO[item.media_type].label}
+                {MEDIA_TYPE_INFO[item.media_type].label}
                 {item.year ? ` · ${item.year}` : ''}
               </p>
-              <h2 className="font-marquee mt-1 text-3xl text-paper [text-shadow:3px_3px_0_var(--color-curtain-dark)] sm:text-4xl">{item.title}</h2>
+              <h2 className="font-marquee mt-1.5 text-3xl text-fg sm:text-4xl">{item.title}</h2>
               {item.subtitle && <p className="mt-1 font-mono text-sm text-muted">{item.subtitle}</p>}
-              {overview && <p className="mt-3 line-clamp-5 text-sm leading-relaxed text-paper/80">{overview}</p>}
+              {overview && <p className="mt-3 line-clamp-5 text-sm leading-relaxed text-fg/75">{overview}</p>}
             </div>
           </div>
 
-          <div className="mt-7 grid gap-6">
-            <div className="flex flex-wrap gap-3">
+          <div className="mt-8 grid gap-6">
+            <div className="flex flex-wrap gap-2">
               {ITEM_STATUSES.map((s) => (
-                <button
-                  key={s}
-                  type="button"
-                  onClick={() => set('status', s)}
-                  className={`font-marquee border-[3px] border-ink px-3 py-1.5 text-sm tracking-wider transition ${
-                    draft.status === s ? 'curtain text-paper shadow-[4px_4px_0_0_var(--color-brass)]' : 'bg-wood-600 text-muted shadow-brut-sm hover:text-paper'
-                  }`}
-                >
+                <button key={s} type="button" onClick={() => set('status', s)} className={`pill ${draft.status === s ? 'pill-on' : ''}`}>
                   {statusLabel(s, item.media_type)}
                 </button>
               ))}
@@ -152,8 +148,8 @@ export function ItemEditor({ item, onClose, onSaved, onRemoved }: Props) {
             </div>
 
             <label className={label}>
-              Tags (separadas por vírgula)
-              <input className="input" value={tagsText} onChange={(e) => setTagsText(e.target.value)} placeholder="ex.: com amigos, férias, coop" />
+              Tags
+              <input className="input" value={tagsText} onChange={(e) => setTagsText(e.target.value)} placeholder="com amigos, férias, coop" />
             </label>
 
             <label className={label}>
@@ -168,7 +164,7 @@ export function ItemEditor({ item, onClose, onSaved, onRemoved }: Props) {
 
             {error && <p className="alert">{error}</p>}
 
-            <div className="flex flex-wrap items-center justify-between gap-3 border-t-[3px] border-dashed border-brass-dark pt-5">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line pt-5">
               <button type="button" className="btn-danger" onClick={remove} disabled={saving}>
                 Remover
               </button>

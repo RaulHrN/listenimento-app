@@ -1,9 +1,10 @@
-import { STATUS_COLORS, statusLabel, type ItemStatus, type MediaType } from '@listenimento/core';
+import { statusLabel, type ItemStatus, type MediaType } from '@listenimento/core';
 
-/** Carimbo de status, como o carimbo da bilheteria no ingresso. */
-export function StatusBadge({ status, mediaType }: { status: ItemStatus; mediaType: MediaType }) {
+/** Etiqueta de status; a cor vem do tema atual (--st-<status>). */
+export function StatusBadge({ status, mediaType, className = '' }: { status: ItemStatus; mediaType: MediaType; className?: string }) {
   return (
-    <span className="stamp" style={{ color: STATUS_COLORS[status] }}>
+    <span className={`tag ${className}`} style={{ color: `var(--st-${status})` }}>
+      <span className="h-1.5 w-1.5 rounded-full bg-current shadow-[0_0_6px_currentColor]" />
       {statusLabel(status, mediaType)}
     </span>
   );

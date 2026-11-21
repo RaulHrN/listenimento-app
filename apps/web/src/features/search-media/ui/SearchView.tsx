@@ -105,13 +105,13 @@ export function SearchView() {
         <p className="font-mono text-muted">Nenhuma sessão encontrada para “{submitted}”.</p>
       )}
 
-      <ul className="grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
+      <ul className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
         {results.map((r) => (
           <SearchResultCard key={itemKey(r)} result={r} savedId={saved.get(itemKey(r))} onAdd={onAdd} />
         ))}
       </ul>
 
-      {loading && <p className="text-center font-mono text-sm uppercase tracking-widest text-brass">Rodando o projetor…</p>}
+      {loading && <p className="text-center font-mono text-xs uppercase tracking-[0.2em] text-muted">Rodando o projetor…</p>}
       {hasMore && !loading && (
         <button className="btn-ghost self-center" onClick={() => run(type, submitted, page + 1)}>
           Carregar mais
@@ -149,13 +149,14 @@ function SearchResultCard({
     <li className="flex flex-col gap-3">
       <MediaCover src={result.imageUrl} alt={result.title} mediaType={result.mediaType} />
       <div className="min-w-0">
-        <p className="line-clamp-2 text-sm font-extrabold uppercase leading-tight text-paper">{result.title}</p>
+        <p className="line-clamp-2 text-sm font-semibold leading-snug text-fg">{result.title}</p>
         <p className="truncate font-mono text-xs text-muted">
           {[result.year, result.subtitle].filter(Boolean).join(' · ')}
         </p>
       </div>
       {savedId ? (
-        <Link href={`/lista?item=${savedId}`} className="stamp self-start text-[#8fbf6a]">
+        <Link href={`/lista?item=${savedId}`} className="tag self-start"
+          style={{ color: 'var(--st-completed)' }}>
           ✓ Na sua lista
         </Link>
       ) : (

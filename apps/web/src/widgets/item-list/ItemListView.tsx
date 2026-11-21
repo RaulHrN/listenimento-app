@@ -82,7 +82,7 @@ export function ItemListView() {
         kicker="Programação da casa"
         title="Minha lista"
         action={
-          <Link href="/buscar" className="btn-brass">
+          <Link href="/buscar" className="btn-primary">
             + Adicionar
           </Link>
         }
@@ -112,8 +112,8 @@ export function ItemListView() {
       {error && <p className="alert">{error}</p>}
 
       {!loading && items.length === 0 && !error && (
-        <div className="panel p-10 text-center">
-          <p className="font-marquee text-4xl text-paper">Sala vazia</p>
+        <div className="card px-6 py-14 text-center">
+          <p className="font-marquee text-4xl text-fg">Sala vazia</p>
           <p className="mt-2 font-mono text-sm text-muted">Nenhum título em cartaz por aqui ainda.</p>
           <Link href="/buscar" className="btn-primary mt-6">
             Buscar algo para adicionar
@@ -121,13 +121,13 @@ export function ItemListView() {
         </div>
       )}
 
-      <ul className="grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
+      <ul className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
         {items.map((item) => (
           <ItemCard key={item.id} item={item} onClick={() => setEditing(item)} />
         ))}
       </ul>
 
-      {loading && <p className="text-center font-mono text-sm uppercase tracking-widest text-brass">Acendendo as luzes…</p>}
+      {loading && <p className="text-center font-mono text-xs uppercase tracking-[0.2em] text-muted">Acendendo as luzes…</p>}
       {hasMore && !loading && (
         <button className="btn-ghost self-center" onClick={() => load(items.length)}>
           Carregar mais

@@ -9,38 +9,41 @@ interface Props {
 }
 
 /**
- * Cartaz 2:3 em moldura de latão, para a grade ficar alinhada.
+ * Cartaz 2:3 para a grade ficar alinhada.
  * Filmes, séries, animes e livros preenchem o cartaz; capas largas
- * (jogos, lugares, álbuns) são "projetadas" sobre a cortina.
+ * (jogos, lugares, álbuns) aparecem projetadas sobre o veludo.
  */
 export function MediaCover({ src, alt, mediaType, className = '' }: Props) {
   const info = MEDIA_TYPE_INFO[mediaType];
   const projected = mediaType === 'game' || mediaType === 'place' || mediaType === 'album';
 
   return (
-    <div className={`poster-frame relative aspect-[2/3] overflow-hidden ${className}`}>
-      {src && !projected && <img src={src} alt={alt} loading="lazy" className="h-full w-full object-cover sepia-[.15] saturate-[.9]" />}
+    <div className={`poster aspect-[2/3] ${className}`}>
+      {src && !projected && <img src={src} alt={alt} loading="lazy" className="h-full w-full object-cover" />}
 
       {src && projected && (
-        <div className="curtain flex h-full w-full items-center justify-center p-3">
+        <div className="velvet flex h-full w-full items-center justify-center p-3">
           <img
             src={src}
             alt={alt}
             loading="lazy"
-            className="max-h-full w-full border-[3px] border-ink object-contain shadow-[0_0_24px_rgba(255,217,138,0.35)] sepia-[.15]"
+            className="max-h-full w-full rounded-[2px] object-contain shadow-[0_0_0_1px_rgba(0,0,0,0.4),0_10px_24px_rgba(0,0,0,0.55),0_0_40px_rgba(255,217,138,0.18)]"
           />
         </div>
       )}
 
       {!src && (
-        <div className="curtain flex h-full w-full flex-col items-center justify-center gap-2">
-          <span className="text-4xl drop-shadow-[3px_3px_0_#0c0806]">{info.emoji}</span>
-          <span className="font-marquee text-xs tracking-widest text-paper/80">{info.label}</span>
+        <div className="velvet flex h-full w-full flex-col items-center justify-center gap-2">
+          <span className="text-4xl opacity-90 drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]">{info.emoji}</span>
+          <span className="font-marquee text-xs tracking-[0.2em] text-[#fbf1de]/70">{info.label}</span>
         </div>
       )}
 
-      {/* vinheta de projeção */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 shadow-[inset_0_0_40px_rgba(0,0,0,0.55)]" />
+      {/* luz: brilho suave no topo e vinheta nas bordas */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.10),transparent_30%,transparent_70%,rgba(0,0,0,0.35))] shadow-[inset_0_0_30px_rgba(0,0,0,0.35)]"
+      />
     </div>
   );
 }
