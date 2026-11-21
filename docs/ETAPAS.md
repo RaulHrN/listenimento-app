@@ -14,6 +14,23 @@ Cada etapa é um commit no histórico do repositório (`git log --oneline`).
 | 8 | `feat(mobile): setup Expo Router com autenticação Supabase` | Expo SDK 58, sessão no AsyncStorage, rotas protegidas e abas |
 | 9 | `feat(mobile): lista, busca, detalhe do item e painel` | Telas completas do app |
 | 10 | `docs: guia de setup, etapas e lockfile` | Documentação e `package-lock.json` |
+| 11 | `chore: renomeia o app de Acervo para Listenimento` | Novo nome em pacotes, app, scheme e docs |
+| 12 | `feat(web): identidade visual cinema brutalista` | Paleta, fontes e redesign completo do site |
+| 13 | `feat(mobile): identidade visual cinema brutalista` | Mesmo design no app Expo |
+
+## Identidade visual
+
+Brutalismo + cinema de rua antigo. A paleta fica em `packages/core/src/theme.ts` e vale para o site e o app.
+
+| Token | Cor | Uso |
+|---|---|---|
+| `ink` | `#0c0806` | bordas grossas e sombras duras |
+| `wood900`–`wood500` | `#170d08` → `#5a3622` | fundo em tábuas, painéis |
+| `curtain` | `#8e0e15` | botões principais, sanefa, cartaz sem capa |
+| `brass` / `bulb` | `#d6a54a` / `#ffd98a` | molduras, lâmpadas do letreiro, destaques |
+| `paper` | `#f1e4c3` | ingressos (login, itens, placar) |
+
+Fontes: **Anton** (letreiro), **Archivo** (texto) e **Courier Prime** (ingresso/carimbos).
 
 ## Modelo de dados
 

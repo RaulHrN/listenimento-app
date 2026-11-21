@@ -4,6 +4,8 @@ Lista pessoal de tudo que você quer assistir, jogar, ler, ouvir e visitar — n
 
 🎬 Filmes · 📺 Séries · 🎮 Jogos · 📚 Livros · 📍 Lugares · 🍥 Animes · 💿 Álbuns
 
+Visual: brutalismo + cinema de rua antigo — madeira escura, vermelho de cortina, latão e papel de ingresso.
+
 ## Estrutura
 
 ```

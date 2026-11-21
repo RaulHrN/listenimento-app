@@ -1,33 +1,31 @@
-import { useColorScheme } from 'react-native';
+import { CINEMA } from '@listenimento/core';
 
-const light = {
-  bg: '#fafafa',
-  card: '#ffffff',
-  text: '#18181b',
-  muted: '#71717a',
-  border: '#e4e4e7',
-  input: '#ffffff',
-  brand: '#4f46e5',
-  brandText: '#ffffff',
-  danger: '#dc2626',
-  chip: '#f4f4f5',
+/** Tema único (escuro) — cinema de rua antigo + brutalismo. */
+export const theme = {
+  ...CINEMA,
+  bg: CINEMA.wood900,
+  card: CINEMA.wood700,
+  text: CINEMA.paper,
+  border: CINEMA.ink,
+  input: CINEMA.ink,
+  brand: CINEMA.curtain,
+  brandText: CINEMA.paper,
+  danger: CINEMA.neon,
+  chip: CINEMA.wood600,
 };
 
-const dark: typeof light = {
-  bg: '#09090b',
-  card: '#18181b',
-  text: '#f4f4f5',
-  muted: '#a1a1aa',
-  border: '#27272a',
-  input: '#18181b',
-  brand: '#6366f1',
-  brandText: '#ffffff',
-  danger: '#f87171',
-  chip: '#27272a',
-};
+export type Theme = typeof theme;
 
-export type Theme = typeof light;
+/** Nomes registrados pelo useFonts em app/_layout.tsx */
+export const fonts = {
+  display: 'Anton_400Regular',
+  body: 'Archivo_400Regular',
+  bodyBold: 'Archivo_800ExtraBold',
+  mono: 'CourierPrime_400Regular',
+  monoBold: 'CourierPrime_700Bold',
+} as const;
 
+/** Mantido como hook para facilitar um tema alternativo no futuro. */
 export function useTheme(): Theme {
-  return useColorScheme() === 'dark' ? dark : light;
+  return theme;
 }

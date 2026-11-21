@@ -13,7 +13,7 @@ import {
   type SearchResult,
 } from '@listenimento/core';
 import { supabase } from '@/lib/supabase';
-import { Center, ErrorText, Input } from '@/components/ui';
+import { Brut, Center, ErrorText, Input, Planks, ScreenTitle, textStyles } from '@/components/ui';
 import { MediaRow } from '@/components/media';
 import { TypeChips } from '@/components/TypeChips';
 import { useTheme } from '@/theme';
@@ -85,7 +85,11 @@ export default function BuscarScreen() {
 
   return (
     <View style={{ flex: 1 }}>
-      <View style={{ gap: 10, paddingTop: 12 }}>
+      <Planks />
+      <View style={{ gap: 12, paddingTop: 14 }}>
+        <View style={{ paddingHorizontal: 16 }}>
+          <ScreenTitle kicker="Bilheteria · escolha a sessão" title="Buscar" />
+        </View>
         <TypeChips value={type} onChange={(v) => v && setType(v)} />
         <View style={{ paddingHorizontal: 16 }}>
           <Input
@@ -108,7 +112,7 @@ export default function BuscarScreen() {
         data={results}
         keyExtractor={itemKey}
         keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{ padding: 16, gap: 10, flexGrow: 1 }}
+        contentContainerStyle={{ padding: 16, gap: 14, flexGrow: 1 }}
         onEndReachedThreshold={0.4}
         onEndReached={() => hasMore && !loading && run(type, submitted, page + 1)}
         renderItem={({ item: r }) => {
@@ -123,30 +127,32 @@ export default function BuscarScreen() {
               mediaType={r.mediaType}
               right={
                 savingKey === key ? (
-                  <ActivityIndicator color={t.brand} />
+                  <ActivityIndicator color={t.curtain} />
                 ) : savedId ? (
                   <Pressable hitSlop={8} onPress={() => router.push({ pathname: '/item/[id]', params: { id: savedId } })}>
-                    <Text style={{ color: '#16a34a', fontSize: 22 }}>✓</Text>
+                    <View style={{ borderWidth: 2, borderColor: t.exit, backgroundColor: t.ink, paddingHorizontal: 6, paddingVertical: 2, transform: [{ rotate: '-4deg' }] }}>
+                      <Text style={[textStyles.monoBold, { color: t.exit, fontSize: 10 }]}>NA LISTA</Text>
+                    </View>
                   </Pressable>
                 ) : (
-                  <Pressable
-                    hitSlop={8}
-                    onPress={() => askStatus(r)}
-                    style={{ backgroundColor: t.brand, width: 34, height: 34, borderRadius: 17, alignItems: 'center', justifyContent: 'center' }}
-                  >
-                    <Text style={{ color: t.brandText, fontSize: 20, lineHeight: 22 }}>+</Text>
+                  <Pressable hitSlop={8} onPress={() => askStatus(r)}>
+                    {({ pressed }) => (
+                      <Brut offset={3} pressed={pressed} contentStyle={{ backgroundColor: t.curtain, width: 38, height: 38, alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={[textStyles.display, { color: t.paper, fontSize: 24, lineHeight: 30 }]}>+</Text>
+                      </Brut>
+                    )}
                   </Pressable>
                 )
               }
             />
           );
         }}
-        ListFooterComponent={loading ? <ActivityIndicator color={t.brand} style={{ marginVertical: 16 }} /> : undefined}
+        ListFooterComponent={loading ? <ActivityIndicator color={t.brass} style={{ marginVertical: 16 }} /> : undefined}
         ListEmptyComponent={
           loading ? undefined : (
             <Center>
-              <Text style={{ color: t.muted, textAlign: 'center' }}>
-                {submitted ? `Nada encontrado para “${submitted}”.` : `Busque ${MEDIA_TYPE_INFO[type].plural.toLowerCase()} para adicionar à sua lista.`}
+              <Text style={[textStyles.mono, { color: t.muted, textAlign: 'center' }]}>
+                {submitted ? `Nenhuma sessão encontrada para “${submitted}”.` : `Busque ${MEDIA_TYPE_INFO[type].plural.toLowerCase()} para adicionar à sua lista.`}
               </Text>
             </Center>
           )
