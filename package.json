@@ -1,0 +1,25 @@
+{
+  "name": "acervo",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Acervo — lista pessoal de entretenimento (filmes, séries, jogos, livros, lugares, animes e álbuns)",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:web": "npm run dev -w @acervo/web",
+    "dev:mobile": "npm run start -w @acervo/mobile",
+    "build:web": "npm run build -w @acervo/web",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "db:start": "supabase start",
+    "db:reset": "supabase db reset",
+    "db:push": "supabase db push",
+    "db:types": "supabase gen types typescript --local > packages/core/src/database.types.ts",
+    "functions:serve": "supabase functions serve --env-file supabase/functions/.env",
+    "functions:deploy": "supabase functions deploy search"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

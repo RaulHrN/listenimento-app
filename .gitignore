@@ -1,0 +1,27 @@
+node_modules/
+.env
+.env.local
+.env*.local
+supabase/functions/.env
+supabase/.temp/
+supabase/.branches/
+
+# Next.js
+apps/web/.next/
+apps/web/out/
+apps/web/next-env.d.ts
+
+# Expo
+apps/mobile/.expo/
+apps/mobile/dist/
+apps/mobile/ios/
+apps/mobile/android/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+*.tsbuildinfo
+.DS_Store
+npm-debug.log*
