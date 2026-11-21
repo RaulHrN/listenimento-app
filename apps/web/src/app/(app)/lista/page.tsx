@@ -1,5 +1,12 @@
+import { Suspense } from 'react';
+import { ItemListView } from '@/widgets/item-list/ItemListView';
+
 export const metadata = { title: 'Minha lista' };
 
 export default function ListaPage() {
-  return <p className="text-zinc-500">Sua lista aparece aqui (etapa 7).</p>;
+  return (
+    <Suspense>
+      <ItemListView />
+    </Suspense>
+  );
 }
