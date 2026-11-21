@@ -7,10 +7,11 @@ import { Anton_400Regular } from '@expo-google-fonts/anton';
 import { Archivo_400Regular, Archivo_800ExtraBold } from '@expo-google-fonts/archivo';
 import { CourierPrime_400Regular, CourierPrime_700Bold } from '@expo-google-fonts/courier-prime';
 import { AuthProvider, useAuth } from '@/providers/AuthProvider';
-import { fonts, theme as t } from '@/theme';
+import { ThemeProvider, fonts, useTheme } from '@/theme';
 
 function RootNavigator() {
   const { session, loading } = useAuth();
+  const t = useTheme();
 
   if (loading) {
     return (
@@ -21,24 +22,27 @@ function RootNavigator() {
   }
 
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-        contentStyle: { backgroundColor: t.bg },
-        headerStyle: { backgroundColor: t.ink },
-        headerTintColor: t.brass,
-        headerTitleStyle: { fontFamily: fonts.display, fontSize: 20 },
-        headerShadowVisible: false,
-      }}
-    >
-      <Stack.Protected guard={!!session}>
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="item/[id]" options={{ headerShown: true, title: '', presentation: 'modal' }} />
-      </Stack.Protected>
-      <Stack.Protected guard={!session}>
-        <Stack.Screen name="login" />
-      </Stack.Protected>
-    </Stack>
+    <>
+      <StatusBar style={t.mode === 'dark' ? 'light' : 'dark'} />
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          contentStyle: { backgroundColor: t.bg },
+          headerStyle: { backgroundColor: t.surface },
+          headerTintColor: t.fg,
+          headerTitleStyle: { fontFamily: fonts.display, fontSize: 20 },
+          headerShadowVisible: false,
+        }}
+      >
+        <Stack.Protected guard={!!session}>
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="item/[id]" options={{ headerShown: true, title: '', presentation: 'modal' }} />
+        </Stack.Protected>
+        <Stack.Protected guard={!session}>
+          <Stack.Screen name="login" />
+        </Stack.Protected>
+      </Stack>
+    </>
   );
 }
 
@@ -51,14 +55,17 @@ export default function RootLayout() {
     CourierPrime_700Bold,
   });
 
-  if (!fontsLoaded) return <View style={{ flex: 1, backgroundColor: t.bg }} />;
-
   return (
     <SafeAreaProvider>
-      <AuthProvider>
-        <StatusBar style="light" />
-        <RootNavigator />
-      </AuthProvider>
+      <ThemeProvider>
+        {fontsLoaded ? (
+          <AuthProvider>
+            <RootNavigator />
+          </AuthProvider>
+        ) : (
+          <View style={{ flex: 1 }} />
+        )}
+      </ThemeProvider>
     </SafeAreaProvider>
   );
 }

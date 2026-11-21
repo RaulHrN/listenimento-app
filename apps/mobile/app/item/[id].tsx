@@ -13,7 +13,7 @@ import {
   type UserItemUpdate,
 } from '@listenimento/core';
 import { supabase } from '@/lib/supabase';
-import { Bulbs, Button, Center, Chip, ErrorText, Input, Label, Planks, textStyles } from '@/components/ui';
+import { Backdrop, Button, Center, Chip, ErrorText, Input, Label, textStyles } from '@/components/ui';
 import { MediaThumb, Stars } from '@/components/media';
 import { useTheme } from '@/theme';
 
@@ -115,22 +115,19 @@ export default function ItemScreen() {
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <Stack.Screen options={{ title: info.label }} />
-      <Planks />
-      <View style={{ backgroundColor: t.ink, borderBottomWidth: 3, borderColor: t.brassDark }}>
-        <Bulbs count={20} />
-      </View>
-      <ScrollView contentContainerStyle={{ padding: 16, gap: 22 }} keyboardShouldPersistTaps="handled">
+      <Backdrop />
+      <ScrollView contentContainerStyle={{ padding: 18, gap: 24, paddingBottom: 40 }} keyboardShouldPersistTaps="handled">
         <View style={{ flexDirection: 'row', gap: 14 }}>
-          <MediaThumb uri={item.image_url} mediaType={item.media_type} width={110} />
+          <MediaThumb uri={item.image_url} mediaType={item.media_type} width={112} />
           <View style={{ flex: 1, gap: 4 }}>
             <Text style={[textStyles.monoBold, { color: t.brass, fontSize: 11, letterSpacing: 2, textTransform: 'uppercase' }]}>
-              {info.emoji} {info.label}
+              {info.label}
               {item.year ? ` · ${item.year}` : ''}
             </Text>
             <Text
               style={[
                 textStyles.display,
-                { color: t.paper, fontSize: 30, lineHeight: 34, textShadowColor: t.curtainDark, textShadowOffset: { width: 3, height: 3 }, textShadowRadius: 0.1 },
+                { color: t.fg, fontSize: 30, lineHeight: 34 },
               ]}
             >
               {item.title}
@@ -140,7 +137,7 @@ export default function ItemScreen() {
         </View>
 
         {overview && (
-          <Text style={{ color: t.paper, opacity: 0.85, lineHeight: 21, fontFamily: 'Archivo_400Regular' }} numberOfLines={8}>
+          <Text style={[textStyles.body, { color: t.fg, opacity: 0.8, lineHeight: 21 }]} numberOfLines={8}>
             {overview}
           </Text>
         )}
@@ -180,8 +177,8 @@ export default function ItemScreen() {
         </View>
 
         <View>
-          <Label>Tags (separadas por vírgula)</Label>
-          <Input value={tagsText} onChangeText={setTagsText} placeholder="ex.: com amigos, férias" autoCapitalize="none" />
+          <Label>Tags</Label>
+          <Input value={tagsText} onChangeText={setTagsText} placeholder="com amigos, férias" autoCapitalize="none" />
         </View>
 
         <View>

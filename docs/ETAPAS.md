@@ -17,20 +17,17 @@ Cada etapa é um commit no histórico do repositório (`git log --oneline`).
 | 11 | `chore: renomeia o app de Acervo para Listenimento` | Novo nome em pacotes, app, scheme e docs |
 | 12 | `feat(web): identidade visual cinema brutalista` | Paleta, fontes e redesign completo do site |
 | 13 | `feat(mobile): identidade visual cinema brutalista` | Mesmo design no app Expo |
+| 14 | `feat(web): temas claro e escuro com sombreamento realista` | Light/dark, sombras em camadas, visual mais enxuto no site |
+| 15 | `feat(mobile): temas claro e escuro com sombreamento realista` | Light/dark com preferência salva e gradientes no app |
 
 ## Identidade visual
 
-Brutalismo + cinema de rua antigo. A paleta fica em `packages/core/src/theme.ts` e vale para o site e o app.
+Cinema de rua antigo, com profundidade e visual enxuto. Tema **claro** (sala com as luzes acesas) e **escuro** (sessão começando); segue o sistema até a pessoa escolher.
 
-| Token | Cor | Uso |
-|---|---|---|
-| `ink` | `#0c0806` | bordas grossas e sombras duras |
-| `wood900`–`wood500` | `#170d08` → `#5a3622` | fundo em tábuas, painéis |
-| `curtain` | `#8e0e15` | botões principais, sanefa, cartaz sem capa |
-| `brass` / `bulb` | `#d6a54a` / `#ffd98a` | molduras, lâmpadas do letreiro, destaques |
-| `paper` | `#f1e4c3` | ingressos (login, itens, placar) |
-
-Fontes: **Anton** (letreiro), **Archivo** (texto) e **Courier Prime** (ingresso/carimbos).
+- Paletas em `packages/core/src/theme.ts` (`PALETTES.light` / `PALETTES.dark`); o site espelha os valores em variáveis CSS (`globals.css`).
+- Profundidade por luz: veludo com dobras iluminadas, madeira envernizada no cabeçalho, sombras em camadas, campos "afundados", botões em relevo, cartazes com vinheta.
+- Fontes: **Anton** (letreiro), **Archivo** (texto) e **Courier Prime** (ingresso/etiquetas).
+- Onde trocar o tema: botão ☀︎/☾ no cabeçalho do site; Placar → Tema no app.
 
 ## Modelo de dados
 

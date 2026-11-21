@@ -3,7 +3,7 @@ import { FlatList, RefreshControl, ScrollView, Text, View } from 'react-native';
 import { router, useFocusEffect } from 'expo-router';
 import { ITEM_STATUSES, genericStatusLabel, listItems, type ItemStatus, type MediaType, type UserItem } from '@listenimento/core';
 import { supabase } from '@/lib/supabase';
-import { Button, Center, Chip, ErrorText, Input, Planks, ScreenTitle, textStyles } from '@/components/ui';
+import { Backdrop, Button, Center, Chip, ErrorText, Input, ScreenTitle, textStyles } from '@/components/ui';
 import { MediaRow, Stars, StatusPill } from '@/components/media';
 import { TypeChips } from '@/components/TypeChips';
 import { useTheme } from '@/theme';
@@ -39,7 +39,7 @@ export default function ListaScreen() {
 
   return (
     <View style={{ flex: 1 }}>
-      <Planks />
+      <Backdrop />
       <View style={{ gap: 12, paddingTop: 14 }}>
         <View style={{ paddingHorizontal: 16 }}>
           <ScreenTitle kicker="Programação da casa" title="Minha lista" />
@@ -65,7 +65,7 @@ export default function ListaScreen() {
         data={items}
         keyExtractor={(i) => i.id}
         contentContainerStyle={{ padding: 16, gap: 14, flexGrow: 1 }}
-        refreshControl={<RefreshControl refreshing={loading} onRefresh={load} tintColor={t.brass} colors={[t.curtain]} />}
+        refreshControl={<RefreshControl refreshing={loading} onRefresh={load} tintColor={t.brass} colors={[t.accent]} />}
         renderItem={({ item }) => (
           <MediaRow
             title={item.title}
@@ -77,8 +77,8 @@ export default function ListaScreen() {
             footer={
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                 <StatusPill status={item.status} mediaType={item.media_type} />
-                {item.rating ? <Stars value={item.rating} size={12} tone="ink" /> : null}
-                {item.priority > 0 ? <Text style={[textStyles.display, { color: t.curtain, fontSize: 16 }]}>{'!'.repeat(item.priority)}</Text> : null}
+                {item.rating ? <Stars value={item.rating} size={12} /> : null}
+                {item.priority > 0 ? <Text style={[textStyles.display, { color: t.accentHi, fontSize: 15 }]}>{'!'.repeat(item.priority)}</Text> : null}
               </View>
             }
           />
@@ -86,7 +86,7 @@ export default function ListaScreen() {
         ListEmptyComponent={
           loading ? undefined : (
             <Center>
-              <Text style={[textStyles.display, { color: t.paper, fontSize: 34 }]}>Sala vazia</Text>
+              <Text style={[textStyles.display, { color: t.fg, fontSize: 34 }]}>Sala vazia</Text>
               <Text style={[textStyles.mono, { color: t.muted, marginTop: 6, marginBottom: 20, textAlign: 'center' }]}>
                 Nenhum título em cartaz por aqui ainda.
               </Text>

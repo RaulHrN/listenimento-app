@@ -5,7 +5,7 @@
     "scheme": "listenimento",
     "version": "0.1.0",
     "orientation": "portrait",
-    "userInterfaceStyle": "dark",
+    "userInterfaceStyle": "automatic",
     "ios": {
       "bundleIdentifier": "com.listenimento.app",
       "supportsTablet": true
@@ -20,7 +20,5 @@
     ],
     "experiments": {
       "typedRoutes": true
-    },
-    "backgroundColor": "#170d08"
-  }
+    }  }
 }

@@ -13,7 +13,9 @@ import {
   type SearchResult,
 } from '@listenimento/core';
 import { supabase } from '@/lib/supabase';
-import { Brut, Center, ErrorText, Input, Planks, ScreenTitle, textStyles } from '@/components/ui';
+import { Backdrop, Center, ErrorText, Input, ScreenTitle, textStyles } from '@/components/ui';
+import { LinearGradient } from 'expo-linear-gradient';
+import { elevation } from '@/theme';
 import { MediaRow } from '@/components/media';
 import { TypeChips } from '@/components/TypeChips';
 import { useTheme } from '@/theme';
@@ -85,7 +87,7 @@ export default function BuscarScreen() {
 
   return (
     <View style={{ flex: 1 }}>
-      <Planks />
+      <Backdrop />
       <View style={{ gap: 12, paddingTop: 14 }}>
         <View style={{ paddingHorizontal: 16 }}>
           <ScreenTitle kicker="Bilheteria · escolha a sessão" title="Buscar" />
@@ -127,19 +129,24 @@ export default function BuscarScreen() {
               mediaType={r.mediaType}
               right={
                 savingKey === key ? (
-                  <ActivityIndicator color={t.curtain} />
+                  <ActivityIndicator color={t.accentHi} />
                 ) : savedId ? (
                   <Pressable hitSlop={8} onPress={() => router.push({ pathname: '/item/[id]', params: { id: savedId } })}>
-                    <View style={{ borderWidth: 2, borderColor: t.exit, backgroundColor: t.ink, paddingHorizontal: 6, paddingVertical: 2, transform: [{ rotate: '-4deg' }] }}>
-                      <Text style={[textStyles.monoBold, { color: t.exit, fontSize: 10 }]}>NA LISTA</Text>
+                    <View style={{ borderWidth: 1, borderColor: t.status.completed + '55', backgroundColor: t.status.completed + '1f', borderRadius: 3, paddingHorizontal: 6, paddingVertical: 3 }}>
+                      <Text style={[textStyles.monoBold, { color: t.status.completed, fontSize: 10 }]}>✓ NA LISTA</Text>
                     </View>
                   </Pressable>
                 ) : (
                   <Pressable hitSlop={8} onPress={() => askStatus(r)}>
                     {({ pressed }) => (
-                      <Brut offset={3} pressed={pressed} contentStyle={{ backgroundColor: t.curtain, width: 38, height: 38, alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={[textStyles.display, { color: t.paper, fontSize: 24, lineHeight: 30 }]}>+</Text>
-                      </Brut>
+                      <View style={[{ borderRadius: 20 }, !pressed && elevation(1, t)]}>
+                        <LinearGradient
+                          colors={[t.accentHi, t.accent, t.accentDeep]}
+                          style={{ width: 38, height: 38, borderRadius: 19, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: 'rgba(0,0,0,0.25)', borderTopColor: 'rgba(255,255,255,0.25)' }}
+                        >
+                          <Text style={{ color: t.accentFg, fontSize: 22, lineHeight: 24, fontWeight: '300' }}>+</Text>
+                        </LinearGradient>
+                      </View>
                     )}
                   </Pressable>
                 )
