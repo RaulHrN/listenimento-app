@@ -15,19 +15,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session);
-      setLoading(false);
-    });
+    // se a sessão salva estiver corrompida, segue deslogado em vez de travar no carregamento
+    supabase.auth
+      .getSession()
+      .then(({ data }) => setSession(data.session))
+      .catch((err) => console.warn('[listenimento] getSession falhou', err))
+      .finally(() => setLoading(false));
     const { data } = supabase.auth.onAuthStateChange((_event, s) => setSession(s));
     return () => data.subscription.unsubscribe();
   }, []);
 
-  return (
-    <AuthContext.Provider value={{ session, loading, signOut: async () => void (await supabase.auth.signOut()) }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  async function signOut() {
+    try {
+      await supabase.auth.signOut();
+    } catch {
+      // sem rede: limpa a sessão local mesmo assim
+      await supabase.auth.signOut({ scope: 'local' }).catch(() => undefined);
+    }
+  }
+
+  return <AuthContext.Provider value={{ session, loading, signOut }}>{children}</AuthContext.Provider>;
 }
 
 export const useAuth = () => useContext(AuthContext);
