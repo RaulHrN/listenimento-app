@@ -2,7 +2,7 @@
 
 Lista pessoal de tudo que você quer assistir, jogar, ler, ouvir e visitar — no celular e na web, sincronizada pela sua conta.
 
-🎬 Filmes · 📺 Séries · 🎮 Jogos · 📚 Livros · 📍 Lugares · 🍥 Animes · 💿 Álbuns
+🎬 Filmes · 📺 Séries · 🎮 Jogos · 📚 Livros · 📍 Lugares · 🍥 Animes · 🎲 Jogos de tabuleiro
 
 Visual: modernismo dos teatros de ópera — carmim, folha de ouro, marfim, arcos e lustres em estrela — com temas claro e escuro.
 
@@ -30,7 +30,7 @@ listenimento/
 ```
 App / Site ──(login Supabase)──► Supabase Auth
      │
-     ├── busca ──► Edge Function "search" ──► TMDB · RAWG · Google Books · OpenTripMap · Jikan · Deezer
+     ├── busca ──► Edge Function "search" ──► TMDB · RAWG · Google Books · OpenTripMap · Jikan · BoardGameGeek
      │
      └── salvar/editar ──► Postgres (user_items, protegido por RLS)
 ```

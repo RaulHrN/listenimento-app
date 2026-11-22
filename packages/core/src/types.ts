@@ -1,7 +1,7 @@
-export type MediaType = 'movie' | 'series' | 'game' | 'book' | 'place' | 'anime' | 'album';
+export type MediaType = 'movie' | 'series' | 'game' | 'book' | 'place' | 'anime' | 'boardgame';
 export type ItemStatus = 'wishlist' | 'in_progress' | 'completed' | 'dropped';
 
-export const MEDIA_TYPES: MediaType[] = ['movie', 'series', 'game', 'book', 'place', 'anime', 'album'];
+export const MEDIA_TYPES: MediaType[] = ['movie', 'series', 'game', 'book', 'place', 'anime', 'boardgame'];
 export const ITEM_STATUSES: ItemStatus[] = ['wishlist', 'in_progress', 'completed', 'dropped'];
 
 /** Resultado normalizado vindo da Edge Function `search`. */

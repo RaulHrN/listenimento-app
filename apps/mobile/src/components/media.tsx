@@ -12,7 +12,7 @@ import { Card, Crimson } from './ui';
 export function MediaThumb({ uri, mediaType, title, width = 60 }: { uri: string | null; mediaType: MediaType; title: string; width?: number }) {
   const t = useTheme();
   const info = MEDIA_TYPE_INFO[mediaType];
-  const projected = mediaType === 'game' || mediaType === 'place' || mediaType === 'album';
+  const projected = mediaType === 'game' || mediaType === 'place' || mediaType === 'boardgame';
   const height = width * 1.5;
   const initial = title.trim().charAt(0).toUpperCase() || '·';
 
@@ -26,7 +26,7 @@ export function MediaThumb({ uri, mediaType, title, width = 60 }: { uri: string 
             <View style={styles.centerFill}>
               {uri ? (
                 <View style={{ width: '80%', borderTopLeftRadius: 999, borderTopRightRadius: 999, overflow: 'hidden', borderWidth: 1, borderColor: '#e7cd8f' }}>
-                  <Image source={{ uri }} style={{ width: '100%', aspectRatio: mediaType === 'album' ? 1 : 4 / 5 }} contentFit="cover" />
+                  <Image source={{ uri }} style={{ width: '100%', aspectRatio: mediaType === 'boardgame' ? 1 : 4 / 5 }} contentFit="cover" />
                 </View>
               ) : (
                 <>

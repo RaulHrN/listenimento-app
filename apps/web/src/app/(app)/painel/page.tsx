@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ITEM_STATUSES, MEDIA_TYPES, MEDIA_TYPE_INFO, PALETTES, genericStatusLabel, getStats } from '@listenimento/core';
+import { DATA_SOURCES, ITEM_STATUSES, MEDIA_TYPES, MEDIA_TYPE_INFO, PALETTES, genericStatusLabel, getStats } from '@listenimento/core';
 import { createSupabaseServer } from '@/shared/lib/supabase/server';
 import { NightPanel, PageTitle } from '@/shared/ui/Marquee';
 import { Chandelier } from '@/shared/ui/Chandelier';
@@ -71,6 +71,22 @@ export default async function PainelPage() {
           .
         </p>
       )}
+
+      <footer className="border-t border-line pt-6 text-xs font-light text-muted">
+        <p className="kicker mb-3">Créditos</p>
+        <p className="leading-relaxed">
+          Dados e imagens de{' '}
+          {DATA_SOURCES.map((s, i) => (
+            <span key={s.name}>
+              <a href={s.url} target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-fg">
+                {s.name}
+              </a>
+              {i < DATA_SOURCES.length - 1 ? ' · ' : '.'}
+            </span>
+          ))}{' '}
+          Este produto usa a API do TMDB, mas não é endossado nem certificado pelo TMDB.
+        </p>
+      </footer>
     </div>
   );
 }

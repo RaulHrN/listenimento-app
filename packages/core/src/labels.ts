@@ -22,7 +22,7 @@ export const MEDIA_TYPE_INFO: Record<MediaType, MediaTypeInfo> = {
   book:   { label: 'Livro', plural: 'Livros', emoji: '📚', verb: 'ler', gerund: 'Lendo', done: 'Lido', placeholder: 'Ex.: Torto Arado', color: '#9b7a3c' },
   place:  { label: 'Lugar', plural: 'Lugares', emoji: '📍', verb: 'visitar', gerund: 'Visitando', done: 'Visitado', placeholder: 'Ex.: Ouro Preto', color: '#3f6a7a' },
   anime:  { label: 'Anime', plural: 'Animes', emoji: '🍥', verb: 'assistir', gerund: 'Assistindo', done: 'Assistido', placeholder: 'Ex.: Frieren', color: '#8e3a5e' },
-  album:  { label: 'Álbum', plural: 'Álbuns', emoji: '💿', verb: 'ouvir', gerund: 'Ouvindo', done: 'Ouvido', placeholder: 'Ex.: Clube da Esquina', color: '#5b4a86' },
+  boardgame: { label: 'Jogo de tabuleiro', plural: 'Jogos de tabuleiro', emoji: '🎲', verb: 'jogar', gerund: 'Jogando', done: 'Jogado', placeholder: 'Ex.: Catan', color: '#8a6a3a' },
 };
 
 /** Cores de status do tema escuro (padrão). Use statusColor() para o tema atual. */
@@ -60,3 +60,13 @@ export const PRIORITY_LABELS = ['Sem prioridade', 'Baixa', 'Média', 'Alta'] as 
 export function genericStatusLabel(status: ItemStatus): string {
   return GENERIC_STATUS[status];
 }
+
+/** Fontes de dados exibidas nos créditos (exigência dos termos de uso das APIs). */
+export const DATA_SOURCES = [
+  { name: 'TMDB', url: 'https://www.themoviedb.org', note: 'Filmes e séries' },
+  { name: 'RAWG', url: 'https://rawg.io', note: 'Jogos' },
+  { name: 'Google Books', url: 'https://books.google.com', note: 'Livros' },
+  { name: 'OpenTripMap', url: 'https://opentripmap.com', note: 'Lugares' },
+  { name: 'Jikan / MyAnimeList', url: 'https://myanimelist.net', note: 'Animes' },
+  { name: 'Powered by BGG', url: 'https://boardgamegeek.com', note: 'Jogos de tabuleiro' },
+] as const;

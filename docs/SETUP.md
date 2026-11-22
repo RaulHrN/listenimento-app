@@ -20,7 +20,7 @@ npm install
 | 📍 Lugares | OpenTripMap | `OPENTRIPMAP_API_KEY` | opentripmap.io/product |
 | 📚 Livros | Google Books | `GOOGLE_BOOKS_API_KEY` (opcional) | console.cloud.google.com → Books API |
 | 🍥 Animes | Jikan | — | sem chave |
-| 💿 Álbuns | Deezer | — | sem chave |
+| 🎲 Jogos de tabuleiro | BoardGameGeek | `BGG_API_TOKEN` | boardgamegeek.com/applications (uso não comercial) |
 
 ```bash
 cp supabase/functions/.env.example supabase/functions/.env

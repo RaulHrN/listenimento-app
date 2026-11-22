@@ -25,3 +25,4 @@ apps/mobile/android/
 *.tsbuildinfo
 .DS_Store
 npm-debug.log*
+supabase/functions/deno.lock

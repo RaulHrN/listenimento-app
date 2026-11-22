@@ -23,6 +23,8 @@ Cada etapa é um commit no histórico do repositório (`git log --oneline`).
 | 17 | `feat(mobile): redesign modernista inspirado nos teatros de ópera` | Mesma identidade no app |
 | 18 | `refactor(ui): remove a estética de cortina` | Só cores sólidas, gradientes e sombras |
 | 19 | `ci: workflow do GitHub Actions para gerar o APK Android` | APK por execução manual ou tag `v*` |
+| 20 | `fix(mobile): app não fecha mais ao abrir sem configuração do Supabase` | Tela de diagnóstico, ErrorBoundary e CI que barra build sem secrets |
+| 21 | `feat: jogos de tabuleiro (BoardGameGeek) no lugar de música` | Migration do enum, provedor BGG e créditos das fontes |
 
 ## Identidade visual
 
@@ -40,7 +42,7 @@ Cada etapa é um commit no histórico do repositório (`git log --oneline`).
 ```
 auth.users 1──1 profiles
 auth.users 1──N user_items
-                  ├─ media_type   movie | series | game | book | place | anime | album
+                  ├─ media_type   movie | series | game | book | place | anime | boardgame
                   ├─ provider + external_id   (único por usuário)
                   ├─ title, subtitle, image_url, year, metadata   ← snapshot da API
                   └─ status, rating, priority, notes, tags, started_at, finished_at

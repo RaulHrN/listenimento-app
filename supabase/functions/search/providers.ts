@@ -1,3 +1,4 @@
+import { XMLParser } from 'npm:fast-xml-parser@4.5.7';
 import type { MediaType, SearchResponse, SearchResult } from '../_shared/types.ts';
 
 const PAGE_SIZE = 20;
@@ -248,31 +249,127 @@ async function searchAnime(query: string, page: number): Promise<SearchResponse>
 }
 
 // ---------------------------------------------------------------------
-// Deezer — álbuns de música, sem chave (https://developers.deezer.com/api)
+// BoardGameGeek — jogos de tabuleiro (XML API2)
+// Desde o fim de 2025 exige token de aplicação (https://boardgamegeek.com/applications).
+// Licença: uso estritamente não comercial, com o selo "Powered by BGG".
+// A busca devolve só id/nome/ano; os detalhes (capa, jogadores, tempo,
+// nota) vêm do endpoint /thing, que aceita até 20 ids por chamada.
 // ---------------------------------------------------------------------
-interface DeezerPage {
-  total: number;
-  data: Array<{ id: number; title: string; cover_medium: string; nb_tracks: number; record_type: string; artist: { name: string } }>;
+const BGG = 'https://boardgamegeek.com/xmlapi2';
+
+const xml = new XMLParser({
+  ignoreAttributes: false,
+  attributeNamePrefix: '',
+  processEntities: true,
+  htmlEntities: true,
+  parseTagValue: false,
+  isArray: (name) => name === 'item' || name === 'name' || name === 'link',
+});
+
+type BggValue = { value?: string } | undefined;
+interface BggName { type?: string; value?: string }
+interface BggSearchItem { type?: string; id: string; name?: BggName[]; yearpublished?: BggValue }
+interface BggThing {
+  id: string;
+  type?: string;
+  thumbnail?: string;
+  image?: string;
+  name?: BggName[];
+  description?: string;
+  yearpublished?: BggValue;
+  minplayers?: BggValue;
+  maxplayers?: BggValue;
+  playingtime?: BggValue;
+  minage?: BggValue;
+  link?: Array<{ type?: string; value?: string }>;
+  statistics?: { ratings?: { average?: BggValue } };
 }
 
-async function searchAlbums(query: string, page: number): Promise<SearchResponse> {
-  const index = (page - 1) * PAGE_SIZE;
-  const url = `https://api.deezer.com/search/album?q=${encodeURIComponent(query)}&index=${index}&limit=${PAGE_SIZE}`;
-  const data = await getJson<DeezerPage>(url);
-  return {
-    page,
-    hasMore: index + data.data.length < data.total,
-    results: data.data.map((a) => ({
-      mediaType: 'album',
-      provider: 'deezer',
-      externalId: String(a.id),
-      title: a.title,
-      subtitle: a.artist.name,
-      imageUrl: a.cover_medium,
-      year: null,
-      metadata: { tracks: a.nb_tracks, recordType: a.record_type, artist: a.artist.name },
-    })),
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+async function bggGet<T>(path: string): Promise<T> {
+  const headers = { Authorization: `Bearer ${env('BGG_API_TOKEN')}`, Accept: 'application/xml' };
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const res = await fetch(`${BGG}${path}`, { headers });
+    // 202 = pedido na fila; 429 = muitas requisições. Espera e tenta de novo.
+    if (res.status === 202 || res.status === 429) {
+      await sleep(1500 * (attempt + 1));
+      continue;
+    }
+    if (res.status === 401 || res.status === 403) {
+      throw new ProviderError('O BoardGameGeek recusou o token (confira o secret BGG_API_TOKEN)', 502);
+    }
+    if (!res.ok) throw new ProviderError(`Falha na API externa (boardgamegeek.com): HTTP ${res.status}`);
+    return xml.parse(await res.text()) as T;
+  }
+  throw new ProviderError('O BoardGameGeek está ocupado; tente de novo em instantes', 503);
+}
+
+function primaryName(names?: BggName[]): string {
+  return names?.find((n) => n.type === 'primary')?.value ?? names?.[0]?.value ?? 'Sem título';
+}
+
+function num(v: BggValue): number | null {
+  const n = Number.parseFloat(v?.value ?? '');
+  return Number.isFinite(n) && n > 0 ? n : null;
+}
+
+/** Relevância simples: título exato > começa com > contém > resto; depois o mais recente. */
+function rankSearch(items: BggSearchItem[], query: string): BggSearchItem[] {
+  const q = query.toLocaleLowerCase('pt-BR');
+  const score = (it: BggSearchItem) => {
+    const n = primaryName(it.name).toLocaleLowerCase('pt-BR');
+    return n === q ? 0 : n.startsWith(q) ? 1 : n.includes(q) ? 2 : 3;
   };
+  const seen = new Set<string>();
+  return items
+    .filter((it) => it.type === 'boardgame' && !seen.has(it.id) && seen.add(it.id))
+    .sort((a, b) => score(a) - score(b) || (num(b.yearpublished) ?? 0) - (num(a.yearpublished) ?? 0));
+}
+
+async function searchBoardGames(query: string, page: number): Promise<SearchResponse> {
+  const found = await bggGet<{ items?: { item?: BggSearchItem[] } }>(
+    `/search?type=boardgame&query=${encodeURIComponent(query)}`,
+  );
+  const ranked = rankSearch(found.items?.item ?? [], query);
+  const start = (page - 1) * PAGE_SIZE;
+  const pageItems = ranked.slice(start, start + PAGE_SIZE);
+  if (pageItems.length === 0) return { page, hasMore: false, results: [] };
+
+  const details = await bggGet<{ items?: { item?: BggThing[] } }>(
+    `/thing?stats=1&id=${pageItems.map((i) => i.id).join(',')}`,
+  );
+  const byId = new Map((details.items?.item ?? []).map((t) => [t.id, t]));
+
+  const results: SearchResult[] = pageItems.map((it) => {
+    const t = byId.get(it.id);
+    const min = num(t?.minplayers);
+    const max = num(t?.maxplayers);
+    const time = num(t?.playingtime);
+    const players = min && max ? (min === max ? `${min} jogadores` : `${min}–${max} jogadores`) : null;
+    const rating = num(t?.statistics?.ratings?.average);
+    return {
+      mediaType: 'boardgame',
+      provider: 'bgg',
+      externalId: it.id,
+      title: primaryName(t?.name ?? it.name),
+      subtitle: [players, time ? `${time} min` : null].filter(Boolean).join(' · ') || null,
+      imageUrl: https(t?.image ?? t?.thumbnail ?? null),
+      year: num(t?.yearpublished ?? it.yearpublished),
+      metadata: {
+        overview: t?.description?.trim().slice(0, 1200) || null,
+        minPlayers: min,
+        maxPlayers: max,
+        playingTime: time,
+        minAge: num(t?.minage),
+        score: rating ? Math.round(rating * 10) / 10 : null,
+        categories: (t?.link ?? []).filter((l) => l.type === 'boardgamecategory').map((l) => l.value).slice(0, 5),
+        url: `https://boardgamegeek.com/boardgame/${it.id}`,
+      },
+    };
+  });
+
+  return { page, hasMore: start + PAGE_SIZE < ranked.length, results };
 }
 
 export const providers: Record<MediaType, (query: string, page: number) => Promise<SearchResponse>> = {
@@ -282,5 +379,5 @@ export const providers: Record<MediaType, (query: string, page: number) => Promi
   book: searchBooks,
   place: searchPlaces,
   anime: searchAnime,
-  album: searchAlbums,
+  boardgame: searchBoardGames,
 };

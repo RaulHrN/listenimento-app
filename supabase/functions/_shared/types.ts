@@ -1,8 +1,8 @@
 // Espelho de packages/core/src/types.ts (as Edge Functions só
 // conseguem importar arquivos dentro de supabase/functions).
-export type MediaType = 'movie' | 'series' | 'game' | 'book' | 'place' | 'anime' | 'album';
+export type MediaType = 'movie' | 'series' | 'game' | 'book' | 'place' | 'anime' | 'boardgame';
 
-export const MEDIA_TYPES: MediaType[] = ['movie', 'series', 'game', 'book', 'place', 'anime', 'album'];
+export const MEDIA_TYPES: MediaType[] = ['movie', 'series', 'game', 'book', 'place', 'anime', 'boardgame'];
 
 export interface SearchResult {
   mediaType: MediaType;

@@ -11,12 +11,12 @@ interface Props {
 /**
  * Cartaz 2:3 para a grade ficar alinhada.
  * Filmes, séries, animes e livros preenchem o cartaz; capas largas
- * (jogos, lugares, álbuns) aparecem num arco sobre fundo carmim.
+ * (jogos, lugares, jogos de tabuleiro) aparecem num arco sobre fundo carmim.
  * Sem capa: inicial em Bodoni sobre carmim, como a capa de um programa de ópera.
  */
 export function MediaCover({ src, alt, mediaType, className = '' }: Props) {
   const info = MEDIA_TYPE_INFO[mediaType];
-  const projected = mediaType === 'game' || mediaType === 'place' || mediaType === 'album';
+  const projected = mediaType === 'game' || mediaType === 'place' || mediaType === 'boardgame';
   const initial = alt.trim().charAt(0).toUpperCase() || '·';
 
   return (
@@ -26,7 +26,7 @@ export function MediaCover({ src, alt, mediaType, className = '' }: Props) {
       {src && projected && (
         <div className="crimson flex h-full w-full items-center justify-center p-4">
           <div className="arch w-full overflow-hidden shadow-[0_0_0_1px_#e7cd8f,0_14px_30px_rgba(0,0,0,0.55)]">
-            <img src={src} alt={alt} loading="lazy" className={`w-full object-cover ${mediaType === 'album' ? 'aspect-square' : 'aspect-[4/5]'}`} />
+            <img src={src} alt={alt} loading="lazy" className={`w-full object-cover ${mediaType === 'boardgame' ? 'aspect-square' : 'aspect-[4/5]'}`} />
           </div>
         </div>
       )}

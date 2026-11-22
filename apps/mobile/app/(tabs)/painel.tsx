@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 import { RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useFocusEffect } from 'expo-router';
 import {
+  DATA_SOURCES,
   ITEM_STATUSES,
   MEDIA_TYPES,
   MEDIA_TYPE_INFO,
@@ -109,6 +110,14 @@ export default function PainelScreen() {
         </View>
 
         <Button title="Sair" variant="ghost" onPress={signOut} />
+
+        <View style={{ borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: t.line, paddingTop: 16 }}>
+          <Label>Créditos</Label>
+          <Text style={[styles.credits, { color: t.muted }]}>
+            Dados e imagens de {DATA_SOURCES.map((s) => s.name).join(' · ')}. Este produto usa a API do TMDB, mas não é endossado nem
+            certificado pelo TMDB.
+          </Text>
+        </View>
       </ScrollView>
     </View>
   );
@@ -122,4 +131,5 @@ const styles = StyleSheet.create({
   rowHead: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline' },
   rowTitle: { fontFamily: fonts.display, fontSize: 20 },
   rowMeta: { fontFamily: fonts.light, fontSize: 13 },
+  credits: { fontFamily: fonts.light, fontSize: 12, lineHeight: 18 },
 });
